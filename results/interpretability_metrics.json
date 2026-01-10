@@ -1,0 +1,12 @@
+{
+  "gini": {
+    "mean_abs_correlation": 0.037636496126651764,
+    "avg_kurtosis": 7.5009765625,
+    "steering_impact": 0.12135446221316669
+  },
+  "l1": {
+    "mean_abs_correlation": 0.13920190930366516,
+    "avg_kurtosis": 4.439757347106934,
+    "steering_impact": 0.01928941909197315
+  }
+}

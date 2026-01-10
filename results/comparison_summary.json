@@ -1,0 +1,11 @@
+{
+  "dense": {
+    "final_recon": 0.0834,
+    "final_gini": 0.1314
+  },
+  "sparse": {
+    "final_recon": 0.0829,
+    "final_gini": 0.9688
+  },
+  "plot_path": "results/dense_vs_sparse_gini.png"
+}

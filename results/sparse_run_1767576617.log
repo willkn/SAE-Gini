@@ -1,0 +1,21 @@
+[SPARSE] Epoch [1/10], Batch [1/16], Loss: 0.0174, Reconstruction Loss: 0.0834, Gini Loss: 0.6602, Raw Gini (mean): 0.6602, Weighted Gini: -0.0660
+[SPARSE] Epoch [1/10], Batch [11/16], Loss: -0.0111, Reconstruction Loss: 0.0836, Gini Loss: 0.9468, Raw Gini (mean): 0.9468, Weighted Gini: -0.0947
+[SPARSE] Epoch [2/10], Batch [1/16], Loss: -0.0121, Reconstruction Loss: 0.0837, Gini Loss: 0.9580, Raw Gini (mean): 0.9580, Weighted Gini: -0.0958
+[SPARSE] Epoch [2/10], Batch [11/16], Loss: -0.0133, Reconstruction Loss: 0.0836, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [3/10], Batch [1/16], Loss: -0.0134, Reconstruction Loss: 0.0835, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [3/10], Batch [11/16], Loss: -0.0133, Reconstruction Loss: 0.0836, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [4/10], Batch [1/16], Loss: -0.0135, Reconstruction Loss: 0.0834, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [4/10], Batch [11/16], Loss: -0.0137, Reconstruction Loss: 0.0831, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [5/10], Batch [1/16], Loss: -0.0143, Reconstruction Loss: 0.0826, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [5/10], Batch [11/16], Loss: -0.0140, Reconstruction Loss: 0.0828, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [6/10], Batch [1/16], Loss: -0.0132, Reconstruction Loss: 0.0836, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [6/10], Batch [11/16], Loss: -0.0137, Reconstruction Loss: 0.0832, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [7/10], Batch [1/16], Loss: -0.0135, Reconstruction Loss: 0.0833, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [7/10], Batch [11/16], Loss: -0.0136, Reconstruction Loss: 0.0833, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [8/10], Batch [1/16], Loss: -0.0137, Reconstruction Loss: 0.0832, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [8/10], Batch [11/16], Loss: -0.0139, Reconstruction Loss: 0.0830, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [9/10], Batch [1/16], Loss: -0.0142, Reconstruction Loss: 0.0827, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [9/10], Batch [11/16], Loss: -0.0138, Reconstruction Loss: 0.0831, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [10/10], Batch [1/16], Loss: -0.0136, Reconstruction Loss: 0.0833, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+[SPARSE] Epoch [10/10], Batch [11/16], Loss: -0.0140, Reconstruction Loss: 0.0829, Gini Loss: 0.9688, Raw Gini (mean): 0.9688, Weighted Gini: -0.0969
+Test Loss: -0.0138

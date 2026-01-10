@@ -1,0 +1,5 @@
+{
+  "pilot_final_loss": 0.0829,
+  "baseline_final_loss": 0.8452,
+  "plot_path": "results/loss_comparison.png"
+}

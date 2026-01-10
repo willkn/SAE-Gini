@@ -1,0 +1,25 @@
+Stdout:
+Epoch [1/10], Batch [1/16], Loss: 0.0838, Reconstruction Loss: 0.0838, Gini Loss: 0.0000
+Epoch [1/10], Batch [11/16], Loss: 0.0832, Reconstruction Loss: 0.0832, Gini Loss: 0.0000
+Epoch [2/10], Batch [1/16], Loss: 0.0831, Reconstruction Loss: 0.0831, Gini Loss: 0.0000
+Epoch [2/10], Batch [11/16], Loss: 0.0838, Reconstruction Loss: 0.0838, Gini Loss: 0.0000
+Epoch [3/10], Batch [1/16], Loss: 0.0831, Reconstruction Loss: 0.0831, Gini Loss: 0.0000
+Epoch [3/10], Batch [11/16], Loss: 0.0837, Reconstruction Loss: 0.0837, Gini Loss: 0.0000
+Epoch [4/10], Batch [1/16], Loss: 0.0831, Reconstruction Loss: 0.0831, Gini Loss: 0.0000
+Epoch [4/10], Batch [11/16], Loss: 0.0828, Reconstruction Loss: 0.0828, Gini Loss: 0.0000
+Epoch [5/10], Batch [1/16], Loss: 0.0830, Reconstruction Loss: 0.0830, Gini Loss: 0.0000
+Epoch [5/10], Batch [11/16], Loss: 0.0834, Reconstruction Loss: 0.0834, Gini Loss: 0.0000
+Epoch [6/10], Batch [1/16], Loss: 0.0836, Reconstruction Loss: 0.0836, Gini Loss: 0.0000
+Epoch [6/10], Batch [11/16], Loss: 0.0829, Reconstruction Loss: 0.0829, Gini Loss: 0.0000
+Epoch [7/10], Batch [1/16], Loss: 0.0830, Reconstruction Loss: 0.0830, Gini Loss: 0.0000
+Epoch [7/10], Batch [11/16], Loss: 0.0830, Reconstruction Loss: 0.0830, Gini Loss: 0.0000
+Epoch [8/10], Batch [1/16], Loss: 0.0826, Reconstruction Loss: 0.0826, Gini Loss: 0.0000
+Epoch [8/10], Batch [11/16], Loss: 0.0834, Reconstruction Loss: 0.0834, Gini Loss: 0.0000
+Epoch [9/10], Batch [1/16], Loss: 0.0824, Reconstruction Loss: 0.0824, Gini Loss: 0.0156
+Epoch [9/10], Batch [11/16], Loss: 0.0834, Reconstruction Loss: 0.0834, Gini Loss: 0.0000
+Epoch [10/10], Batch [1/16], Loss: 0.0822, Reconstruction Loss: 0.0822, Gini Loss: 0.0000
+Epoch [10/10], Batch [11/16], Loss: 0.0833, Reconstruction Loss: 0.0833, Gini Loss: 0.0000
+Test Loss: 0.0829
+
+
+Stderr:

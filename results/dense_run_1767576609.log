@@ -1,0 +1,21 @@
+[DENSE] Epoch [1/10], Batch [1/16], Loss: 0.1550, Reconstruction Loss: 0.0840, Gini Loss: 0.7100, Raw Gini (mean): 0.7100, Weighted Gini: 0.0710
+[DENSE] Epoch [1/10], Batch [11/16], Loss: 0.1017, Reconstruction Loss: 0.0839, Gini Loss: 0.1789, Raw Gini (mean): 0.1789, Weighted Gini: 0.0179
+[DENSE] Epoch [2/10], Batch [1/16], Loss: 0.0991, Reconstruction Loss: 0.0834, Gini Loss: 0.1572, Raw Gini (mean): 0.1572, Weighted Gini: 0.0157
+[DENSE] Epoch [2/10], Batch [11/16], Loss: 0.0983, Reconstruction Loss: 0.0838, Gini Loss: 0.1450, Raw Gini (mean): 0.1450, Weighted Gini: 0.0145
+[DENSE] Epoch [3/10], Batch [1/16], Loss: 0.0979, Reconstruction Loss: 0.0837, Gini Loss: 0.1419, Raw Gini (mean): 0.1419, Weighted Gini: 0.0142
+[DENSE] Epoch [3/10], Batch [11/16], Loss: 0.0970, Reconstruction Loss: 0.0832, Gini Loss: 0.1382, Raw Gini (mean): 0.1382, Weighted Gini: 0.0138
+[DENSE] Epoch [4/10], Batch [1/16], Loss: 0.0968, Reconstruction Loss: 0.0830, Gini Loss: 0.1373, Raw Gini (mean): 0.1373, Weighted Gini: 0.0137
+[DENSE] Epoch [4/10], Batch [11/16], Loss: 0.0972, Reconstruction Loss: 0.0835, Gini Loss: 0.1364, Raw Gini (mean): 0.1364, Weighted Gini: 0.0136
+[DENSE] Epoch [5/10], Batch [1/16], Loss: 0.0970, Reconstruction Loss: 0.0834, Gini Loss: 0.1358, Raw Gini (mean): 0.1358, Weighted Gini: 0.0136
+[DENSE] Epoch [5/10], Batch [11/16], Loss: 0.0965, Reconstruction Loss: 0.0830, Gini Loss: 0.1353, Raw Gini (mean): 0.1353, Weighted Gini: 0.0135
+[DENSE] Epoch [6/10], Batch [1/16], Loss: 0.0967, Reconstruction Loss: 0.0832, Gini Loss: 0.1346, Raw Gini (mean): 0.1346, Weighted Gini: 0.0135
+[DENSE] Epoch [6/10], Batch [11/16], Loss: 0.0967, Reconstruction Loss: 0.0833, Gini Loss: 0.1341, Raw Gini (mean): 0.1341, Weighted Gini: 0.0134
+[DENSE] Epoch [7/10], Batch [1/16], Loss: 0.0968, Reconstruction Loss: 0.0835, Gini Loss: 0.1335, Raw Gini (mean): 0.1335, Weighted Gini: 0.0134
+[DENSE] Epoch [7/10], Batch [11/16], Loss: 0.0965, Reconstruction Loss: 0.0832, Gini Loss: 0.1329, Raw Gini (mean): 0.1329, Weighted Gini: 0.0133
+[DENSE] Epoch [8/10], Batch [1/16], Loss: 0.0968, Reconstruction Loss: 0.0835, Gini Loss: 0.1330, Raw Gini (mean): 0.1330, Weighted Gini: 0.0133
+[DENSE] Epoch [8/10], Batch [11/16], Loss: 0.0967, Reconstruction Loss: 0.0834, Gini Loss: 0.1323, Raw Gini (mean): 0.1323, Weighted Gini: 0.0132
+[DENSE] Epoch [9/10], Batch [1/16], Loss: 0.0963, Reconstruction Loss: 0.0831, Gini Loss: 0.1323, Raw Gini (mean): 0.1323, Weighted Gini: 0.0132
+[DENSE] Epoch [9/10], Batch [11/16], Loss: 0.0969, Reconstruction Loss: 0.0838, Gini Loss: 0.1316, Raw Gini (mean): 0.1316, Weighted Gini: 0.0132
+[DENSE] Epoch [10/10], Batch [1/16], Loss: 0.0964, Reconstruction Loss: 0.0832, Gini Loss: 0.1313, Raw Gini (mean): 0.1313, Weighted Gini: 0.0131
+[DENSE] Epoch [10/10], Batch [11/16], Loss: 0.0965, Reconstruction Loss: 0.0834, Gini Loss: 0.1314, Raw Gini (mean): 0.1314, Weighted Gini: 0.0131
+Test Loss: 0.0965

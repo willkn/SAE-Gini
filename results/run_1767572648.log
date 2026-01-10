@@ -1,0 +1,8 @@
+Stdout:
+
+
+Stderr:
+Traceback (most recent call last):
+  File "/Users/kevknott/will/research/ARA/projects/sparse-autoencoders-with-differentiable-sparsity-metrics/experiments/train_pilot.py", line 2, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'

@@ -1,0 +1,4702 @@
+[
+  {
+    "avg_ties": 28.6171875,
+    "max_ties": 37
+  },
+  {
+    "avg_ties": 43.921875,
+    "max_ties": 49
+  },
+  {
+    "avg_ties": 52.3515625,
+    "max_ties": 57
+  },
+  {
+    "avg_ties": 56.90625,
+    "max_ties": 58
+  },
+  {
+    "avg_ties": 57.90625,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 58.375,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 58.859375,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 58.92578125,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 58.99609375,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 58.99609375,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0,
+    "max_ties": 59
+  },
+  {
+    "avg_ties": 59.0078125,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 59.05859375,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 59.31640625,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 59.79296875,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 59.91015625,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 59.96875,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0,
+    "max_ties": 60
+  },
+  {
+    "avg_ties": 60.0234375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.0390625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.0625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.08984375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.12109375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.328125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.39453125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.3671875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.4375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.40234375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.5234375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.40234375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.4453125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.4453125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.36328125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.421875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.47265625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.34375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.37109375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.34765625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.37109375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.33203125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.33203125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.3203125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.3671875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.3515625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.3828125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.37890625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.421875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.4765625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.4140625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.421875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.44921875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.48828125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.4765625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.50390625,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.52734375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.52734375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.5703125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.51953125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.54296875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.578125,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.55859375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.52734375,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.6171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.49609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.50390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.5703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.59765625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.55078125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.5859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.7265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.62109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.53515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.69921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.60546875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.5859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.68359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.61328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.64453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.64453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.59765625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.66015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.62890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.63671875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.59765625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.63671875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.58203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.57421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.62890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.6328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.63671875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.59375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.56640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.64453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.53515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.5,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.44140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.49609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.43359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.51953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.51953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.5625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.48828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.54296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.45703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.48828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.41015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.5,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.42578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.48828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.47265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.41796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.37890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.46875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.40234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.4609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.39453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.47265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.39453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.37890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.43359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.41796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.333333333333336,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.4140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.35546875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.43359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.35546875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30078125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.34375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.36328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.35546875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30078125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3671875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.34765625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30078125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.34765625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.35546875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.36328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.37890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.36328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30078125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.31640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.270833333333336,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30078125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.33984375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.3046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.29296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.27734375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.296875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25390625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.32421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.30859375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28515625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.28125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.26171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.14453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.25,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1328125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.24609375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2421875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21484375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.203125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23046875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.14453125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.171875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.12890625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.20703125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.22265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.21875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2109375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15234375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.13671875,
+    "max_ties": 61
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.23828125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16015625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.17578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2265625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.15625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1953125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.16796875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.18359375,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.1640625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.140625,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.19921875,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.2578125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.125,
+    "max_ties": 62
+  },
+  {
+    "avg_ties": 60.135416666666664,
+    "max_ties": 61
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "gini_accuracy": 35.77,
+  "l1_accuracy": 30.72,
+  "gini_lambda": 0.2,
+  "l1_lambda": 0.05
+}
