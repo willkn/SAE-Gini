@@ -45,37 +45,6 @@ The following table compares the Gini SAE against a tuned L1 baseline on the Fas
 
 ---
 
-## 📂 Repository Structure
-
-This repository is organized by experiment suite:
-*   `/mnist_fmnist/`: Scripts for the vision benchmarks and the Pareto frontier analysis (Figure 1).
-*   `/tinystories/`: Feature extraction scripts for the TinyStories-1M transformer residual stream.
-*   `/core/`: The core `GiniLoss` implementation and the **Feature Revival** (Ghost Grads) logic.
-*   `/analysis/`: Jupyter notebooks for generating activation histograms and Lorenz curves.
-
----
-
-## 🛠️ Replication
-
-To replicate the results from Section 5 of the paper:
-
-1. **Environment:**
-   ```bash
-   pip install torch torchvision numpy matplotlib
-   ```
-
-2. **Run F-MNIST Experiment:**
-   ```bash
-   python mnist_fmnist/train_gini_sae.py --dataset fmnist --lambda 0.05
-   ```
-
-3. **Run Transformer Feature Extraction:**
-   ```bash
-   python tinystories/extract_features.py --layer 4 --expansion 8
-   ```
-
----
-
 ## 📐 The Gini Objective
 
 We employ a rank-based, differentiable formulation of the Gini coefficient:
