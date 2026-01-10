@@ -77,4 +77,3 @@ If you find this research or the Gini-Optimization objective useful for your wor
   url={https://github.com/willkn/Gini-SAE}
 }
 ```
-```
