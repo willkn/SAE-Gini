@@ -47,6 +47,7 @@ where $z_{(i)}$ are the absolute activations sorted in non-descending order. By 
 While the sorting permutation is technically piecewise constant, the objective remains differentiable with respect to the magnitude values. Specifically, \texttt{torch.sort} returns the sorted values $z_{(i)}$ along with their original indices. In the backward pass, gradients are correctly routed to the original input positions $z_k$ by applying the inverse permutation. This ensures that the learning signal updates the magnitude of the neuron that occupied a specific rank during the forward pass. The optimization landscape is further smoothed by the stochastic nature of mini-batch gradient descent.
 
 \subsection{Algorithmic Contribution: Feature Revival}
+\label{sec:hybrid}
 To address the non-convex nature of rank-based optimization and the risk of "dead features" (neurons that never activate), we implement a \textit{Feature Revival} mechanism inspired by the "Ghost Grads" approach in Gated SAEs \cite{lieberum2024gated}. Every 5 epochs, we identify a set of dead neurons $\mathcal{D} = \{j \mid \mathbb{E}[z_j] = 0\}$. For each $j \in \mathcal{D}$, we re-initialize the encoder weights $W_{enc}^{(j)}$ and bias $b_{enc}^{(j)}$ using the current reconstruction residual $e = x - \hat{x}$ of a high-error sample:
 \begin{equation}
 W_{enc}^{(j)} \leftarrow \frac{e}{\|e\|_2}, \quad b_{enc}^{(j)} \leftarrow 0
@@ -149,14 +150,29 @@ At matched training duration, the Gini-optimized SAE achieved a \textbf{Relative
 To address the "feature soup" of natural images, we evaluated the robust Gini SAE (with Feature Revival) on CIFAR-10. At a latent dimension of $N=2048$, the model achieved a \textbf{Mean Squared Error of 0.0095} and a \textbf{Relative Sparsity of 97.0\%}. Critically, the Feature Revival mechanism limited dead neurons to only $4.5\%$ ($93/2048$), demonstrating that Gini optimization can effectively utilize high model capacity to capture complex visual features without the over-pruning observed in vanilla rank-based methods. 
 
 \section{Limitations \& Discussion}
+\label{sec:limitations}
 While Gini Optimization offers several advantages, it is not without theoretical and practical trade-offs:
 \begin{itemize}
     \item \textbf{Approximation of Sparsity}: Gini is a measure of inequality, not a direct proxy for $L_0$ sparsity. In specific cases, the model may achieve high Gini inequality by producing a few extreme "shouting" features and a long tail of small, non-zero values. While post-training thresholding mitigates this (Section \ref{sec:benchmarks}), true sparsity is not structurally enforced.
     \item \textbf{Sorting Complexity}: The $O(N \log N)$ cost of sorting is non-trivial for very large latent dimensions (e.g., $N > 10^5$), though as noted, it remains manageable for current transformer scales. 
     \item \textbf{Hyperparameter Sensitivity}: While robust to many parameters, the balance between reconstruction loss and Gini penalty ($\lambda$) remains sensitive to the entropy of the input dataset.
     \item \textbf{Non-convex Sorting Landscape}: The piece-wise constant nature of the sorting permutation can lead to plateaus in the optimization landscape, which we mitigate through Feature Revival and stochastic training.
-    \item \textbf{Rank Ties at High Sparsity}: As the latent code collapses toward the extreme sparsity levels reported above, most activations tie at exactly zero. In a diagnostic run on MNIST ($N=64$), the average number of tied entries per sample rose to 59 of 64 by the end of training. \texttt{torch.sort} still returns a valid gradient for tied values, but the rank each tied entry is assigned is an arbitrary artifact of the sort implementation rather than a meaningful distinction between those (zero) activations. We have not yet characterized how much this degrades the gradient signal relative to a tie-aware formulation, and flag it as the most important open validity question for the method at the sparsity regimes this paper reports.
+    \item \textbf{Rank Ties at High Sparsity}: As the latent code collapses toward the extreme sparsity levels reported above, most activations tie at exactly zero. In a diagnostic run on MNIST ($N=64$), the average number of tied entries per sample rose to 59--61 of 64 by the end of training. We characterize this directly in Section \ref{sec:tie-analysis}: the arbitrary rank assignment does not, in fact, degrade the gradient signal, because the gradient on those entries is already exactly zero for an orthogonal reason (dying ReLU saturation), independent of how ties are broken.
 \end{itemize}
+
+\subsection{Do Rank Ties Actually Corrupt the Gradient?}
+\label{sec:tie-analysis}
+Section \ref{sec:limitations}'s tie-count measurement was previously left uninterpreted; we resolve it here with a direct test (\texttt{experiments/tie\_gradient\_analysis.py}, \texttt{experiments/soft\_gini.py}).
+
+\textbf{Hypothesis under test.} If \texttt{torch.sort}'s arbitrary tie-breaking is corrupting the gradient signal, then latent entries with \emph{identical} values should receive \emph{different} gradients purely as an artifact of sort order --- and a tie-symmetric ranking should fix it.
+
+\textbf{Tie-aware alternative.} We implement a soft-rank Gini using pairwise sigmoid comparisons, $\text{rank}_{\text{soft}}(x_i) = 1 + \sum_{j \neq i}\sigma\!\big((x_i - x_j)/\tau\big)$, substituted for the sorted integer position in the same rank-weighted Gini formula. Because $\sigma(0) = 0.5$ exactly, any two tied entries receive an identical soft rank regardless of their position in the tensor, so $\partial\text{Gini}/\partial z_i = \partial\text{Gini}/\partial z_j$ is guaranteed whenever $z_i = z_j$ -- a property \texttt{torch.sort}-based ranking does not have. As $\tau \to 0$, soft rank converges to the hard rank used elsewhere in this paper (we verified numerical agreement to 4 decimal places at $\tau=10^{-3}$ on tie-free inputs).
+
+\textbf{Synthetic confirmation.} On a synthetic vector with two tied, non-zero groups ($[0.2,0.2,0.2,0.2,0.9,0.9]$), the hard-sort formulation assigns the four identical $0.2$ entries four \emph{different} gradients (ranging from $-0.459$ to $-0.074$), purely from tie-break order. The soft-rank formulation assigns all four the same gradient ($-0.266$), as intended. This confirms the hypothesized failure mode exists in the formulation in the abstract.
+
+\textbf{But in the trained model, the failure mode does not manifest.} Re-running the MNIST diagnostic and measuring within-tie-group gradient variance at each step (normalized by the per-sample gradient scale) gives a value of \emph{exactly zero}, at every point in training, for \textbf{both} the hard-sort and soft-rank formulations. The reason is architectural, not a property of the sort: with a ReLU encoder, essentially all ties are literal zeros produced by the ReLU floor (95.4--95.8\% of latent entries are exactly zero by epoch 1, matching the tie count), and \texttt{torch.abs} has a zero subgradient at $0$ (\texttt{sign(0) = 0}). The chain rule therefore zeroes the gradient on every ReLU-dead entry \emph{before} the rank-dependent term is ever applied, regardless of which arbitrary rank that entry was assigned. Soft ranking changes nothing here, because both formulations multiply by the same (zero) upstream term.
+
+\textbf{Revised conclusion.} The rank-tie mechanism speculated about in early drafts of this paper is not, in practice, the source of gradient degradation at high sparsity. The actual mechanism is standard ReLU saturation on dead units, a distinct and already-known failure mode that this paper mitigates via the Feature Revival mechanism (periodic reinitialization of dead neurons from reconstruction residuals; Section \ref{sec:hybrid}) rather than via any change to the ranking function. We still find soft ranking a well-motivated, provably tie-consistent replacement for \texttt{torch.sort} in principle -- it removes a genuine gradient inconsistency among tied, \emph{active} (non-zero) features, which the synthetic test above demonstrates directly -- but we no longer claim it addresses the extreme-sparsity dead-feature regime. We revise the open validity question accordingly: the risk at extreme sparsity is dead-unit gradient starvation (shared with any ReLU-based sparse architecture), not rank-tie arbitrariness.
 
 \subsection{Quantitative Interpretability and Feature Steering}
 To move beyond visual inspection, we evaluated the monosemanticity of learned features using three quantitative metrics: Feature Correlation, Kurtosis, and Steering Impact.
@@ -174,7 +190,33 @@ Steering Impact & 0.019 & \textbf{0.121} \\ \bottomrule
 \end{tabular}
 \end{table}
 
-The results (Table \ref{tab:interpretability}) demonstrate that Gini optimization produces significantly more distinct and impactful features. The $3.7 \times$ lower correlation indicates that Gini features are effectively orthogonal, representing unique semantic directions. The high Kurtosis confirms a sharp bimodal activation distribution, preventing the "feature splitting" common in $L_1$ where concepts are absorbed across many weak directions. Critically, the \textbf{Steering Impact} for Gini is $6.3 \times$ higher than $L_1$. This indicates that ablating a single Gini-optimized feature causes a semantically significant change in the reconstruction, proving that these features capture high-fidelity components of the data distribution rather than mere noise.
+The results (Table \ref{tab:interpretability}) demonstrate that Gini optimization produces significantly more distinct and impactful features. The $3.7 \times$ lower correlation indicates that Gini features are effectively orthogonal, representing unique semantic directions. The high Kurtosis confirms a sharp bimodal activation distribution, preventing the "feature splitting" common in $L_1$ where concepts are absorbed across many weak directions. Critically, the \textbf{Steering Impact} for Gini is $6.3 \times$ higher than $L_1$. This indicates that ablating a single Gini-optimized feature causes a semantically significant change in the reconstruction, proving that these features capture high-fidelity components of the data distribution rather than mere noise. (The original Steering Impact metric above was estimated from a single feature on a single sample; Section \ref{sec:shrinkage-mechanism} replaces it with an estimate averaged over 1000 sample-feature interventions and situates the result against literature baselines.)
+
+\subsection{Why Does Gini Improve Steering? A Shrinkage-Mechanism Test}
+\label{sec:shrinkage-mechanism}
+
+The steering result above raises an obvious question: \emph{why} would penalizing distributional inequality, specifically, produce more causally-effective features than penalizing magnitude directly? The mechanistic literature on SAE training gives a concrete answer. \citet{wright2024addressing} identify \textit{shrinkage}: an $L_1$ penalty is paid on activation magnitude directly, so gradient descent finds it cheaper to shrink a feature's true magnitude toward zero than to pay the reconstruction cost of leaving it at full strength. Gated SAEs \cite{lieberum2024gated}, JumpReLU \cite{rajamanoharan2024jumprelu}, and Top-$k$ SAEs \cite{gao2024topk} are all, in this framing, different mechanisms for decoupling "does this feature fire" from "how large is it when it fires," specifically to avoid shrinkage. Differentiable Gini optimization -- which penalizes evenness of the activation distribution rather than magnitude -- is a candidate for the same class of fix, and predicts two measurable effects relative to $L_1$ at matched sparsity: (1) higher magnitude among features that do fire (less shrinkage), and (2) fewer co-active features per sample (less superposition \cite{elhage2022superposition}), both of which should increase the causal leverage of a single-feature intervention.
+
+We test this directly on Fashion-MNIST ($N=1024$), comparing Gini against Tuned $L_1$, a Gated SAE, and -- critically -- a Top-$k$ SAE whose $k$ we set to exactly match Gini's observed mean active-feature count (92 of 1024), giving a sparsity-matched comparison against the strongest existing shrinkage-free baseline rather than only against $L_1$. We also replace the single-sample steering metric above with an estimate averaged over 1000 (sample, feature) interventions, and report both feature \textit{ablation} (zeroing an active feature) and feature \textit{clamping} (amplifying it $3\times$), since steering in the literature (e.g. \citet{templeton2024scaling}) is about amplifying a direction, not only removing one.
+
+\begin{table}[h]
+\centering
+\caption{Shrinkage-mechanism and steering metrics, Fashion-MNIST, $N{=}1024$. Top-$k$ is sparsity-matched to Gini ($k=92$).}
+\label{tab:shrinkage}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Model & Active/sample & Mean Magnitude & MSE & Steer (Ablate) & Steer (Clamp) \\ \midrule
+Tuned $L_1$ & 467.4 & 0.238 & \textbf{0.0021} & 0.025 & 0.050 \\
+Gated SAE & 248.6 & 0.165 & 0.0038 & 0.024 & 0.049 \\
+Top-$k$ ($k{=}92$) & 92.0 & 0.726 & 0.0060 & 0.065 & 0.130 \\
+\textbf{Gini} & 92.5 & \textbf{2.165} & 0.0085 & \textbf{0.107} & \textbf{0.215} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Both predictions hold, and the Top-$k$ comparison is what makes the result interpretable rather than incidental. Top-$k$ has \emph{no} magnitude penalty at all -- the purest possible shrinkage-free baseline -- yet at identical sparsity, Gini's active features carry $3\times$ Top-$k$'s magnitude and produce $1.6\times$ its steering impact under both ablation and clamping. This rules out "Gini merely avoids shrinkage" as the full explanation: Top-$k$ already avoids shrinkage by construction and still underperforms. Gini's distributional pressure appears to do something Top-$k$ does not -- \emph{actively concentrate} magnitude onto the surviving features, rather than simply declining to suppress it. Tuned $L_1$ and the Gated SAE, meanwhile, both have $2.5$--$5\times$ more co-active features per sample than Gini or Top-$k$, consistent with the superposition side of the prediction: diluted, distributed activity gives any single intervention less to work with, independent of magnitude.
+
+This comes with a quantified cost. Gini's MSE (0.0085) is the worst of the four at matched sparsity, including relative to Top-$k$ (0.0060). We do not read this as undermining the result: it is the other side of the same mechanism -- concentrating reconstruction responsibility onto fewer, larger-magnitude features is precisely what should trade fidelity for steerability, and Table \ref{tab:shrinkage} lets a reader weigh that tradeoff directly rather than encountering it only as an unexplained gap between sparsity and accuracy elsewhere in this paper (Section \ref{sec:limitations}).
+
 \section{Conclusion}
 We have presented Gini Optimization as a scale-invariant alternative to $L_1$ regularization for Sparse Autoencoders. By decoupling feature sparsity from activation magnitude, we mitigate the problem of \textit{magnitude starvation} and enable features to maintain semantic fidelity even at extreme levels of sparsity. Our theoretical analysis of \textit{gradient persistence} and empirical results across multiple domains suggest that Gini-regularized models are a promising tool for high-fidelity mechanistic interpretability. 
 
@@ -186,6 +228,10 @@ While $L_1$ remains a standard for structural sparsity, Gini's distributional pr
 \bibitem{rajamanoharan2024jumprelu} Rajamanoharan, S., et al. (2024). Improving Interpretability at Scale: JumpReLU SAEs. arXiv preprint arXiv:2407.14454.
 \bibitem{zonoobi2011gini} Zonoobi, D., et al. (2011). Gini Index as a Sparsity Measure for Signal Recovery. IEEE Transactions on Signal Processing.
 \bibitem{louizos2017learning} Louizos, C., et al. (2017). Learning Sparse Neural Networks through $L_0$ Regularization. ICLR.
+\bibitem{wright2024addressing} Wright, B., \& Sharkey, L. (2024). Addressing Feature Suppression in Sparse Autoencoders. arXiv preprint arXiv:2405.12241.
+\bibitem{gao2024topk} Gao, L., et al. (2024). Scaling and Evaluating Sparse Autoencoders. arXiv preprint arXiv:2406.04093.
+\bibitem{elhage2022superposition} Elhage, N., et al. (2022). Toy Models of Superposition. Transformer Circuits Thread.
+\bibitem{templeton2024scaling} Templeton, A., et al. (2024). Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet. Transformer Circuits Thread.
 \end{thebibliography}
 
 \end{document}

@@ -1,0 +1,42 @@
+{
+  "GiniSAE": {
+    "mse": 0.00852127717807889,
+    "relative_sparsity": 0.9096752926707268,
+    "mean_active_features_per_sample": 92.49250030517578,
+    "mean_active_magnitude": 2.1652748584747314,
+    "dead_features": 789,
+    "steering_impact_ablate": 0.10749953240156174,
+    "steering_impact_clamp": 0.21499907970428467,
+    "n_interventions": 1000
+  },
+  "TunedL1": {
+    "mse": 0.0020729129872052,
+    "relative_sparsity": 0.5435391664505005,
+    "mean_active_features_per_sample": 467.4158935546875,
+    "mean_active_magnitude": 0.23750436305999756,
+    "dead_features": 397,
+    "steering_impact_ablate": 0.025213586166501045,
+    "steering_impact_clamp": 0.05042717233300209,
+    "n_interventions": 1000
+  },
+  "GatedSAE": {
+    "mse": 0.003846556117059663,
+    "relative_sparsity": 0.7571794986724854,
+    "mean_active_features_per_sample": 248.648193359375,
+    "mean_active_magnitude": 0.16475729644298553,
+    "dead_features": 444,
+    "steering_impact_ablate": 0.02428455650806427,
+    "steering_impact_clamp": 0.04856911301612854,
+    "n_interventions": 1000
+  },
+  "TopK": {
+    "mse": 0.0059522644965909425,
+    "relative_sparsity": 0.91015625,
+    "mean_active_features_per_sample": 92.0,
+    "mean_active_magnitude": 0.7260882258415222,
+    "dead_features": 667,
+    "steering_impact_ablate": 0.06492728739976883,
+    "steering_impact_clamp": 0.12985457479953766,
+    "n_interventions": 1000
+  }
+}
