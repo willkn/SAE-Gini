@@ -65,7 +65,7 @@ def feature_importance_and_purity(model, loader, num_classes=10, min_active=5):
     computed once over the whole test set (no intervention loop needed)."""
     model.eval()
     decoder_weight = model.decoder.weight.detach()  # [d_in, d_latent]
-    col_norms = decoder_weight.norm(dim=0)  # [d_latent], ||W[:, f]||
+    col_norms = decoder_weight.norm(dim=0).cpu()  # [d_latent], ||W[:, f]||
 
     d_latent = col_norms.shape[0]
     total_importance = torch.zeros(d_latent)
