@@ -1,4 +1,4 @@
-# Gini Over L1: Scale-Invariant Sparsity for Sparse Autoencoders
+# Gini Over Top K: Scale-Invariant Sparsity for Sparse Autoencoders
 
 Experimental code and results for the working paper "Gini Over L1:
 Scale-Invariant Sparsity for Sparse Autoencoders" (January 2026).
