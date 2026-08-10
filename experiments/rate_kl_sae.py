@@ -128,7 +128,34 @@ def evaluate(model, test_loader, test_len, label):
             n_batches += 1
     r["mse"] = mse_total / n_batches
     r.update(steering_metrics(model, test_loader))
+    r["activity_distribution"] = per_sample_activity_stats(model, test_loader)
     return r
+
+
+def per_sample_activity_stats(model, test_loader):
+    """Distribution of per-sample active-feature counts, to diagnose the
+    n_interventions drop seen at high lambda: rate-KL pins the MEAN active
+    count at N*rho, but the KL term constrains per-feature firing rates,
+    not per-sample counts, so activity can go bimodal (some samples dense,
+    some near-silent). Near-silent samples starve the steering metric of
+    interventions and would also mean some inputs are barely represented."""
+    model.eval()
+    counts = []
+    with torch.no_grad():
+        for batch, _ in test_loader:
+            batch = batch.to(device)
+            _, z = model(batch)
+            counts.append((z.abs() > 1e-6).sum(dim=1).cpu())
+    counts = torch.cat(counts).float()
+    quantiles = torch.tensor([0.01, 0.05, 0.25, 0.5, 0.75, 0.95, 0.99])
+    q = torch.quantile(counts, quantiles)
+    return {
+        "quantiles": {f"p{int(p * 100)}": float(v) for p, v in zip(quantiles, q)},
+        "mean": float(counts.mean()),
+        "std": float(counts.std()),
+        "frac_samples_lt5_active": float((counts < 5).float().mean()),
+        "frac_samples_lt1_active": float((counts < 1).float().mean()),
+    }
 
 
 def run(dataset_name, seed, rho, lambda_values, tau):
