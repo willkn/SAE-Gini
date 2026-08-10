@@ -34,7 +34,7 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from steering_shrinkage_benchmark import SimpleSAE, DATASETS, latent_dim, batch_size, lr, epochs, device
+from steering_shrinkage_benchmark import SimpleSAE, DATASETS, latent_dim, batch_size, lr, epochs, device, steering_metrics
 from feature_purity_analysis import feature_importance_and_purity, summarize
 
 
@@ -105,6 +105,7 @@ def run(dataset_name, seed, lambda_balance_values):
                 mse_total += criterion(recon, batch).item()
                 n_batches += 1
         r["mse"] = mse_total / n_batches
+        r.update(steering_metrics(model, test_loader))
         results[label] = r
 
     out_path = f"results/gini_load_balance/{dataset_name}_seed{seed}.json"
@@ -113,13 +114,17 @@ def run(dataset_name, seed, lambda_balance_values):
         json.dump(results, f, indent=2)
 
     print(f"\n=== {dataset_name} seed={seed}: load-balance sweep ===")
-    header = f"{'Model':16s} {'MSE':>8s} {'Sparsity':>9s} {'ImpGini':>8s} {'Top10Share':>11s} {'MeanPurity':>11s} {'Top10Purity':>12s}"
+    header = (
+        f"{'Model':16s} {'MSE':>8s} {'Sparsity':>9s} {'ImpGini':>8s} {'Top10Share':>11s} "
+        f"{'MeanPurity':>11s} {'Top10Purity':>12s} {'Ablate':>8s} {'Clamp':>8s}"
+    )
     print(header)
     for name, r in results.items():
         print(
             f"{name:16s} {r['mse']:8.4f} {r['relative_sparsity']:9.3f} "
             f"{r['importance_gini_coefficient']:8.3f} {r['top10_importance_share']:11.3f} "
-            f"{r['mean_purity']:11.3f} {r['mean_purity_top10pct_by_importance']:12.3f}"
+            f"{r['mean_purity']:11.3f} {r['mean_purity_top10pct_by_importance']:12.3f} "
+            f"{r['steering_impact_ablate']:8.4f} {r['steering_impact_clamp']:8.4f}"
         )
     return results
 
@@ -128,6 +133,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=list(DATASETS.keys()), default="fashion_mnist")
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--lambdas", nargs="+", type=float, default=[0.0, 0.01, 0.1, 1.0])
+    parser.add_argument("--lambdas", nargs="+", type=float, default=[0.0, 0.002, 0.005, 0.01, 0.02, 0.05])
     args = parser.parse_args()
     run(args.dataset, args.seed, args.lambdas)
