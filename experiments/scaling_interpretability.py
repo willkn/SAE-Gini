@@ -51,7 +51,7 @@ class Autoencoder(nn.Module):
         return recon, z
 
 def run_scaling_and_viz(l_dim):
-    print(f"\n🚀 Running Scalability & Interpretability Test (Latent Dim = {l_dim})")
+    print(f"\nRunning Scalability & Interpretability Test (Latent Dim = {l_dim})")
     
     transform = transforms.Compose([
         transforms.ToTensor(),
@@ -142,4 +142,4 @@ if __name__ == "__main__":
     with open("results/scaling_stability.json", "w") as f:
         json.dump(scaling_data, f, indent=2)
         
-    print("\n✅ Scaling & Interpretability Test Complete!")
+    print("\nScaling & Interpretability Test Complete!")

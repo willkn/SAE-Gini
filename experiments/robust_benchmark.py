@@ -186,7 +186,7 @@ if __name__ == "__main__":
     for ds in datasets_to_run:
         all_results[ds] = {}
         for mode in modes:
-            print(f"\n🚀 Running {ds} | {mode}...")
+            print(f"\nRunning {ds} | {mode}...")
             runs = []
             for seed in seeds:
                 res = train_one_run(ds, mode, seed)
@@ -206,4 +206,4 @@ if __name__ == "__main__":
     with open("results/robust_benchmark.json", "w") as f:
         json.dump(all_results, f, indent=2)
 
-    print("\n✅ Robust Benchmarking Complete!")
+    print("\nRobust Benchmarking Complete!")

@@ -1,72 +1,64 @@
 # Gini Over L1: Scale-Invariant Sparsity for Sparse Autoencoders
 
-[![Status](https://img.shields.io/badge/Status-Working%20Paper-orange.svg)]()
-[![Field](https://img.shields.io/badge/Field-Mechanistic%20Interpretability-blue.svg)]()
-[![Stage](https://img.shields.io/badge/Stage-Experimental-red.svg)]()
+Experimental code and results for the working paper "Gini Over L1:
+Scale-Invariant Sparsity for Sparse Autoencoders" (January 2026).
 
-> **"Sparsity should be treated as a property of the distribution, not the scale."**
+This is a research repository, not a production library: the code here is the
+set of experimental scripts used to generate the paper's results, intended for
+replication or extension of the Gini-optimization objective. Benchmarks on
+MNIST, Fashion-MNIST, and TinyStories-1M are stable; scaling to larger
+transformer residual streams is in progress.
 
-This repository contains the experimental code and findings for the working paper **"Gini Over L1: Scale-Invariant Sparsity for Sparse Autoencoders"** (January 2026).
+## Abstract
 
----
+Sparse Autoencoders (SAEs) are used to decode the internal representations of
+neural networks. The standard L1 regularizer penalizes activation scale
+directly, which causes magnitude starvation: features are pushed toward small
+magnitudes to satisfy the penalty, blurring the distinction between signal and
+noise.
 
-## ⚠️ Important Disclaimer
-**This is a research repository, not a production library.** 
-The code provided here consists of experimental scripts used to generate the results in the paper. It is intended for researchers in Mechanistic Interpretability looking to replicate our findings or build upon the Gini Optimization objective.
+We propose differentiable Gini optimization: a scale-invariant sparsity
+objective that targets distributional inequality (the Gini index) rather than
+absolute magnitude. This lets semantic features keep high-fidelity magnitudes
+even at extreme sparsity (>97%).
 
-**Status:** This is a **working paper**. While benchmarks on MNIST, Fashion-MNIST, and TinyStories-1M are stable, scaling to larger transformer residual streams is currently in progress.
+Key findings:
+- Gini-optimized features reach up to 17x higher magnitudes than L1
+  counterparts at matched sparsity.
+- Gini-optimized features are 6.3x more causally significant for model
+  steering.
+- Distributional pressure avoids the gradient collapse that L1 models show on
+  high-entropy datasets (e.g. Fashion-MNIST).
 
----
+## Results
 
-## 🔬 Research Abstract
+Gini SAE vs. a tuned L1 baseline on Fashion-MNIST (N=1024):
 
-Sparse Autoencoders (SAEs) are critical for decoding the internal representations of AI models. However, the industry-standard **L1 Regularization** introduces **Magnitude Starvation**: by penalizing activation scale, it forces features to "whisper," blurring the lines between signal and noise.
+| Metric | L1 baseline | Gini SAE |
+| --- | --- | --- |
+| Relative sparsity | 56.3% | 96.8% |
+| Peak activation | ~4.0 | ~70.0 |
+| Steering impact | 0.019 | 0.121 (6.3x) |
+| Monosemanticity (kurtosis) | 4.44 | 7.50 |
 
-We propose **Differentiable Gini Optimization**, a scale-invariant alternative that targets distributional inequality rather than absolute magnitude. By optimizing for the Gini Index, we allow semantic features to **"shout"** (maintain high-fidelity magnitudes) even at extreme sparsity levels (>97%).
+## The Gini objective
 
-### Key Findings:
-*   **Magnitude Decoupling:** Gini-optimized features exhibit up to 17x higher magnitudes than L1 counterparts at matched sparsity.
-*   **6.3x Steering Impact:** Proves that Gini-optimized features are more causally significant for model steering.
-*   **Gradient Persistence:** Distributional pressure prevents the "gradient collapse" common in L1 models on high-entropy datasets (e.g., Fashion-MNIST).
-
----
-
-## 📊 Key Results
-
-### Shouting vs. Whispering
-The following table compares the Gini SAE against a tuned L1 baseline on the Fashion-MNIST benchmark ($N=1024$):
-
-| Metric | L1 Baseline | **Gini SAE (Ours)** |
-| :--- | :--- | :--- |
-| **Relative Sparsity** | 56.3% | **96.8%** |
-| **Peak Activation** | ~4.0 | **~70.0** |
-| **Steering Impact** | 0.019 | **0.121 (6.3x Increase)** |
-| **Monosemanticity (Kurtosis)** | 4.44 | **7.50** |
-
----
-
-## 📐 The Gini Objective
-
-We employ a rank-based, differentiable formulation of the Gini coefficient:
+A rank-based, differentiable formulation of the Gini coefficient:
 
 $$G(z) = \frac{2 \sum_{i=1}^n i \cdot z_{(i)}}{n \sum_{i=1}^n z_{(i)}} - \frac{n+1}{n}$$
 
-Our implementation utilizes `torch.sort` to maintain a valid gradient path, ensuring that the learning signal updates the magnitudes of features based on their relative rank in the activation distribution.
+The implementation uses `torch.sort` to keep a valid gradient path, so the
+learning signal updates feature magnitudes based on their relative rank in the
+activation distribution.
 
----
+## Contact
 
-## ✉️ Contact & Collaboration
+William Knott — williamknott00@gmail.com
 
-I am an undergraduate researcher interested in the intersection of **Mechanistic Interpretability** and **AI Safety**. I am actively looking for feedback on this work, particularly regarding the scaling of Gini Optimization to billion-parameter models.
+Feedback welcome, particularly on scaling Gini optimization to
+billion-parameter models.
 
-*   **Author:** William Knott
-*   **Feedback:** [williamknott00@gmail.com]
-
----
-
-## 📜 Citation
-
-If you find this research or the Gini-Optimization objective useful for your work, please cite it as a working paper:
+## Citation
 
 ```bibtex
 @article{knott2026gini,
@@ -74,6 +66,6 @@ If you find this research or the Gini-Optimization objective useful for your wor
   author={Knott, William},
   journal={Working Paper},
   year={2026},
-  url={https://github.com/willkn/Gini-SAE}
+  url={https://github.com/willkn/SAE-Gini}
 }
 ```

@@ -95,7 +95,7 @@ def get_dead_features(model, dataloader, device):
     return dead_count
 
 def run_experiment(dataset_name="fashion"):
-    print(f"\n🚀 Running Modern Benchmarks on {dataset_name}...")
+    print(f"\nRunning Modern Benchmarks on {dataset_name}...")
     transform = transforms.Compose([transforms.ToTensor(), transforms.Lambda(lambda x: torch.flatten(x))])
     if dataset_name == "fashion":
         train_ds = datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
@@ -188,7 +188,7 @@ def run_experiment(dataset_name="fashion"):
 
 # --- Sorting Benchmark ---
 def benchmark_sort_scaling():
-    print("\n⏱️ Benchmarking Sorting Overhead...")
+    print("\nBenchmarking Sorting Overhead...")
     sizes = [1024, 4096, 16384, 32768, 65536, 131072]
     batch_size = 256
     results = {}

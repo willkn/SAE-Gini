@@ -71,7 +71,7 @@ def get_sparsity(z, threshold=0.01):
 
 # --- Training / Evaluation Loops ---
 def run_benchmark(mode="gini"):
-    print(f"\n🚀 Running Benchmark: {mode.upper()}...")
+    print(f"\nRunning Benchmark: {mode.upper()}...")
     model = Autoencoder().to(device)
     optimizer = optim.Adam(model.parameters(), lr=lr)
     criterion = nn.MSELoss()
@@ -122,7 +122,7 @@ def run_benchmark(mode="gini"):
         print(f"Epoch {epoch+1}/{epochs} | MSE: {avg_mse:.4f} | Sparsity: {avg_sparsity:.2%} | Gini: {avg_gini:.4f}")
         
     duration = time.time() - start_time
-    print(f"🏁 {mode.upper()} Complete in {duration:.2f}s")
+    print(f"{mode.upper()} Complete in {duration:.2f}s")
     return model, logs
 
 # --- Execution ---
@@ -166,7 +166,7 @@ plt.tight_layout()
 os.makedirs("results", exist_ok=True)
 plot_path = "results/mnist_benchmark_comparison.png"
 plt.savefig(plot_path, dpi=150)
-print(f"\n📊 Benchmark comparison saved to {plot_path}")
+print(f"\nBenchmark comparison saved to {plot_path}")
 
 # --- Sample Reconstruction Visualisation ---
 def save_recons(model, name):
@@ -187,4 +187,4 @@ def save_recons(model, name):
 
 save_recons(gini_model, "gini")
 save_recons(l1_model, "l1")
-print(f"🖼️ Sample reconstructions saved to results/mnist_recons_*.png")
+print(f"Sample reconstructions saved to results/mnist_recons_*.png")

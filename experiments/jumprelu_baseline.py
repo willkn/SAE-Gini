@@ -32,7 +32,7 @@ class JumpReLU(nn.Module):
         return recon, z
 
 def train_jumprelu(target_sparsity=0.9):
-    print(f"🚀 Training JumpReLU for target sparsity {target_sparsity}...")
+    print(f"Training JumpReLU for target sparsity {target_sparsity}...")
     transform = transforms.Compose([transforms.ToTensor(), transforms.Lambda(lambda x: torch.flatten(x))])
     train_ds = datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
     test_ds = datasets.FashionMNIST(root='./data', train=False, download=True, transform=transform)

@@ -69,4 +69,4 @@ if __name__ == "__main__":
     with open("results/efficiency_audit.json", "w") as f:
         json.dump(results, f, indent=2)
         
-    print(f"\n✅ Efficiency Audit Saved to results/efficiency_audit.json")
+    print(f"\nEfficiency Audit Saved to results/efficiency_audit.json")

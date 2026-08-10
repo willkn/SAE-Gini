@@ -44,7 +44,7 @@ class RobustSAE(nn.Module):
         return recon, z
 
 def train_robust_gini(dataset="cifar10"):
-    print(f"🚀 Training Robust Gini SAE on {dataset}...")
+    print(f"Training Robust Gini SAE on {dataset}...")
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),

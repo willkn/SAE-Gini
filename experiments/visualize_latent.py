@@ -92,4 +92,4 @@ plt.xlabel("Activation Value")
 
 plt.tight_layout()
 plt.savefig("results/latent_distributions.png", dpi=150)
-print("📊 Distribution plot saved to results/latent_distributions.png")
+print("Distribution plot saved to results/latent_distributions.png")

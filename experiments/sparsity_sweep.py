@@ -133,4 +133,4 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.savefig("results/mnist_tradeoff_curve.png", dpi=150)
 
-print("\n📈 Sweep complete! Tradeoff curve saved to results/mnist_tradeoff_curve.png")
+print("\nSweep complete! Tradeoff curve saved to results/mnist_tradeoff_curve.png")

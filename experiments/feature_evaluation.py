@@ -179,6 +179,6 @@ if __name__ == "__main__":
     with open("results/feature_evaluation.json", "w") as f:
         json.dump(results, f, indent=2)
         
-    print(f"\n✅ Evaluation complete!")
+    print(f"\nEvaluation complete!")
     print(f"Gini Accuracy: {gini_acc:.2f}%")
     print(f"L1 Accuracy: {l1_acc:.2f}%")

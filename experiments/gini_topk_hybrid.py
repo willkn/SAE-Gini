@@ -63,7 +63,7 @@ class HybridAutoencoder(nn.Module):
         return recon, z
 
 def train_and_eval_hybrid(dataset_name="mnist"):
-    print(f"🚀 Training Gini -> Top-k Hybrid on {dataset_name}...")
+    print(f"Training Gini -> Top-k Hybrid on {dataset_name}...")
     
     transform = transforms.Compose([transforms.ToTensor(), transforms.Lambda(lambda x: torch.flatten(x))])
     if dataset_name == "mnist":
@@ -115,7 +115,7 @@ def train_and_eval_hybrid(dataset_name="mnist"):
             mses.append(criterion(r, b).item())
             
     test_mse = np.mean(mses)
-    print(f"✅ Hybrid {dataset_name} MSE: {test_mse:.4f}")
+    print(f"Hybrid {dataset_name} MSE: {test_mse:.4f}")
     return test_mse
 
 if __name__ == "__main__":
