@@ -1,0 +1,42 @@
+{
+  "GiniSAE": {
+    "label": "GiniSAE",
+    "n_valid_features": 156,
+    "importance_gini_coefficient": 0.7657064339596906,
+    "top10_importance_share": 0.6721622347831726,
+    "importance_purity_correlation": -0.18380145821539381,
+    "mean_purity": 0.1440393179655075,
+    "mean_purity_top10pct_by_importance": 0.0011525313602760434,
+    "mean_purity_rest": 0.15924006700515747
+  },
+  "TopK": {
+    "label": "TopK",
+    "n_valid_features": 280,
+    "importance_gini_coefficient": 0.5764262584685096,
+    "top10_importance_share": 0.41291236877441406,
+    "importance_purity_correlation": -0.5623648980804079,
+    "mean_purity": 0.27827075123786926,
+    "mean_purity_top10pct_by_importance": 0.03345347195863724,
+    "mean_purity_rest": 0.3054726719856262
+  },
+  "TunedL1": {
+    "label": "TunedL1",
+    "n_valid_features": 535,
+    "importance_gini_coefficient": 0.37024404032939984,
+    "top10_importance_share": 0.2614186108112335,
+    "importance_purity_correlation": -0.36757670548014054,
+    "mean_purity": 0.05297458544373512,
+    "mean_purity_top10pct_by_importance": 0.00025684654247015715,
+    "mean_purity_rest": 0.058771345764398575
+  },
+  "GatedSAE": {
+    "label": "GatedSAE",
+    "n_valid_features": 496,
+    "importance_gini_coefficient": 0.521900267346761,
+    "top10_importance_share": 0.3772575855255127,
+    "importance_purity_correlation": -0.32056268706205315,
+    "mean_purity": 0.09283550083637238,
+    "mean_purity_top10pct_by_importance": 0.003008876461535692,
+    "mean_purity_rest": 0.10268227010965347
+  }
+}

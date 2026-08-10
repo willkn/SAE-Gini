@@ -1,0 +1,30 @@
+{
+  "GiniSAE": {
+    "ablate_flip_rate": 0.03999999910593033,
+    "ablate_prob_shift": 0.030322490260004997,
+    "clamp_flip_rate": 0.08100000023841858,
+    "clamp_prob_shift": 0.054917022585868835,
+    "n_interventions": 1000
+  },
+  "TunedL1": {
+    "ablate_flip_rate": 0.00800000037997961,
+    "ablate_prob_shift": 0.005488039925694466,
+    "clamp_flip_rate": 0.008999999612569809,
+    "clamp_prob_shift": 0.010252034291625023,
+    "n_interventions": 1000
+  },
+  "GatedSAE": {
+    "ablate_flip_rate": 0.017000000923871994,
+    "ablate_prob_shift": 0.0071875364519655704,
+    "clamp_flip_rate": 0.019999999552965164,
+    "clamp_prob_shift": 0.012561038136482239,
+    "n_interventions": 1000
+  },
+  "TopK": {
+    "ablate_flip_rate": 0.023000000044703484,
+    "ablate_prob_shift": 0.01818089745938778,
+    "clamp_flip_rate": 0.03500000014901161,
+    "clamp_prob_shift": 0.034962065517902374,
+    "n_interventions": 1000
+  }
+}
