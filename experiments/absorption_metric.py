@@ -107,12 +107,52 @@ def main_latent_f1(z, y):
     return results
 
 
+HUB_FIRE_RATE_THRESHOLD = 0.5  # a "main latent" firing on >=50% of ALL samples
+                                # (not just its class) is a hub, not a concept
+                                # tracker -- flag it rather than trust its F1.
+N_NULL_TRIALS = 5  # random-latent-set controls per class, for null calibration
+
+
+def _absorption_rate_for_latents(z_c, main_fires, aligned_idx, decoder_weight, probe_dir, typical_main_mass):
+    """Fraction of class-c samples where the main latent is silent but the
+    given latent set jointly carries >= ABSORB_FRAC of typical_main_mass in
+    the class direction."""
+    if typical_main_mass <= 0 or len(aligned_idx) == 0:
+        return 0.0
+    silent = ~main_fires
+    z_silent = z_c[silent][:, aligned_idx]  # [Ns, A]
+    contrib = z_silent * (decoder_weight[:, aligned_idx].T @ probe_dir).unsqueeze(0)
+    carried = contrib.sum(dim=1).abs()  # [Ns]
+    absorbed = (carried >= ABSORB_FRAC * typical_main_mass).float()
+    return float(absorbed.sum() / z_c.shape[0])
+
+
 def absorption_scores(model, z, y, probe_dirs):
-    """Per-class absorption rate, main-latent miss rate, and F1."""
+    """Per-class absorption rate, main-latent miss rate, F1, main-latent
+    firing rate (hub flag), and a null-calibrated control.
+
+    Metric fixes applied here (see module docstring for the failure modes
+    that motivated them):
+      - main_fire_rate_overall: a latent firing on most of the WHOLE dataset
+        (not just its assigned class) is a hub the max-F1 search picked as
+        "main" by default (an always-on latent gets F1 = 2p/(1+p) on a
+        p-frequency class purely from recall=1, not from tracking anything).
+        Flagged via is_hub_main; hub-main classes are excluded from the
+        mean_absorption_rate/mean_main_f1 that drive cross-method comparison,
+        and reported separately.
+      - null_absorption_rate: same computation as absorption_rate but on a
+        random latent set of the same size as the aligned set, averaged over
+        N_NULL_TRIALS draws. absorption_rate should be judged relative to
+        this, not to zero -- weak class probes / low typical_main_mass can
+        make the compensation criterion pass by chance.
+    """
     decoder_weight = model.decoder.weight.detach().cpu()  # [input_dim, L]
+    n_latents = decoder_weight.shape[1]
     col_units = decoder_weight / decoder_weight.norm(dim=0, keepdim=True).clamp(min=1e-8)
     probe_dirs = probe_dirs.cpu()  # [C, input_dim]
     cos = probe_dirs @ col_units  # [C, L] cosine of each latent's decoder col with each class direction
+
+    overall_fire_rate = (z.abs() > 1e-6).float().mean(dim=0)  # [L], over ALL samples
 
     mains = main_latent_f1(z, y)
     per_class = []
@@ -125,6 +165,8 @@ def absorption_scores(model, z, y, probe_dirs):
 
         main_fires = z_c[:, main_idx].abs() > 1e-6
         miss_rate = float((~main_fires).float().mean())
+        main_fire_rate_overall = float(overall_fire_rate[main_idx])
+        is_hub_main = main_fire_rate_overall >= HUB_FIRE_RATE_THRESHOLD
 
         # Class-direction mass the main latent carries when it does fire:
         # projection of its decoder contribution onto d_c.
@@ -136,15 +178,25 @@ def absorption_scores(model, z, y, probe_dirs):
         aligned[main_idx] = False
         aligned_idx = torch.where(aligned)[0]
 
-        if typical_main_mass > 0 and len(aligned_idx) > 0:
-            silent = ~main_fires
-            z_silent = z_c[silent][:, aligned_idx]  # [Ns, A]
-            contrib = z_silent * (decoder_weight[:, aligned_idx].T @ probe_dirs[c]).unsqueeze(0)
-            carried = contrib.sum(dim=1).abs()  # [Ns] class-direction mass via aligned latents
-            absorbed = (carried >= ABSORB_FRAC * typical_main_mass).float()
-            absorption_rate = float(absorbed.sum() / z_c.shape[0])
-        else:
-            absorption_rate = 0.0
+        absorption_rate = _absorption_rate_for_latents(
+            z_c, main_fires, aligned_idx, decoder_weight, probe_dirs[c], typical_main_mass
+        )
+
+        # Null control: same computation on random latent sets of matching
+        # size, excluding the main latent, averaged over trials.
+        null_rates = []
+        pool = torch.tensor([i for i in range(n_latents) if i != main_idx])
+        for _ in range(N_NULL_TRIALS):
+            if len(aligned_idx) == 0 or len(pool) == 0:
+                null_rates.append(0.0)
+                continue
+            rand_idx = pool[torch.randperm(len(pool))[: len(aligned_idx)]]
+            null_rates.append(
+                _absorption_rate_for_latents(
+                    z_c, main_fires, rand_idx, decoder_weight, probe_dirs[c], typical_main_mass
+                )
+            )
+        null_absorption_rate = float(torch.tensor(null_rates).mean())
 
         per_class.append(
             {
@@ -152,21 +204,38 @@ def absorption_scores(model, z, y, probe_dirs):
                 "main_latent": main_idx,
                 "main_f1": f1,
                 "main_miss_rate": miss_rate,
+                "main_fire_rate_overall": main_fire_rate_overall,
+                "is_hub_main": is_hub_main,
                 "absorption_rate": absorption_rate,
+                "null_absorption_rate": null_absorption_rate,
+                "absorption_above_null": absorption_rate - null_absorption_rate,
                 "n_aligned_latents": int(len(aligned_idx)),
             }
         )
 
-    mean = lambda k: float(torch.tensor([p[k] for p in per_class]).mean())
+    clean = [p for p in per_class if not p["is_hub_main"]]
+    n_hub = len(per_class) - len(clean)
+    mean = lambda rows, k: float(torch.tensor([p[k] for p in rows]).mean()) if rows else float("nan")
     return {
         "per_class": per_class,
-        "mean_absorption_rate": mean("absorption_rate"),
-        "mean_main_f1": mean("main_f1"),
-        "mean_main_miss_rate": mean("main_miss_rate"),
+        "n_hub_main_classes": n_hub,
+        # Means over non-hub-main classes only, so a method that "avoids
+        # absorption" merely by having F1-maximal hubs picked as main
+        # latents everywhere doesn't get credit for it -- if n_hub_main
+        # is high for a method, treat its absorption numbers as unreliable
+        # regardless of value, and look at n_hub_main itself instead.
+        "mean_absorption_rate": mean(clean, "absorption_rate"),
+        "mean_null_absorption_rate": mean(clean, "null_absorption_rate"),
+        "mean_absorption_above_null": mean(clean, "absorption_above_null"),
+        "mean_main_f1": mean(clean, "main_f1"),
+        "mean_main_miss_rate": mean(clean, "main_miss_rate"),
+        # Unfiltered versions for reference / sanity checking.
+        "mean_absorption_rate_all_classes": mean(per_class, "absorption_rate"),
+        "mean_main_f1_all_classes": mean(per_class, "main_f1"),
     }
 
 
-def run(dataset_name, seed, rho, rate_kl_lambdas, tau):
+def make_probe_and_loaders(dataset_name, seed):
     torch.manual_seed(seed)
     dataset_cls, input_dim = DATASETS[dataset_name]
     transform = transforms.Compose([transforms.ToTensor(), transforms.Lambda(lambda x: torch.flatten(x))])
@@ -174,42 +243,73 @@ def run(dataset_name, seed, rho, rate_kl_lambdas, tau):
     test_ds = dataset_cls(root="./data", train=False, download=True, transform=transform)
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_ds, batch_size=batch_size, shuffle=False)
-
-    print(f"[{dataset_name} seed={seed}] Fitting class probes...")
     probe_dirs = fit_class_probes(train_loader, input_dim)
+    return input_dim, train_loader, test_loader, probe_dirs
+
+
+def evaluate_trained_models(dataset_name, seed, trained_models, out_path=None):
+    """trained_models: dict label -> model exposing (recon, z) forward and
+    a .decoder Linear, already trained. Fits class probes once and scores
+    every model against them -- reused so different training runs (e.g. a
+    rho sweep, or an entirely different objective) share one evaluation
+    path and stay comparable."""
+    _, _, test_loader, probe_dirs = make_probe_and_loaders(dataset_name, seed)
 
     results = {}
-
-    for lam in rate_kl_lambdas:
-        label = f"RateKL_rho{rho}_lam{lam}"
-        print(f"[{dataset_name} seed={seed}] Training {label}...")
-        model = _EvalWrapper(train_rate_kl(train_loader, input_dim, rho=rho, lambda_kl=lam, tau=tau))
+    for label, model in trained_models.items():
         z, y = collect_latents(model, test_loader)
         results[label] = absorption_scores(model, z, y, probe_dirs)
 
+    if out_path:
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
+        with open(out_path, "w") as f:
+            json.dump(results, f, indent=2)
+
+    print(f"\n=== {dataset_name} seed={seed}: absorption (class-level adaptation of Chanin et al. 2024) ===")
+    header = f"{'Model':28s} {'Absorption':>11s} {'vsNull':>8s} {'MainF1':>8s} {'MainMiss':>9s} {'HubMain':>8s}"
+    print(header)
+    for name, r in results.items():
+        print(
+            f"{name:28s} {r['mean_absorption_rate']:11.4f} {r['mean_absorption_above_null']:8.4f} "
+            f"{r['mean_main_f1']:8.3f} {r['mean_main_miss_rate']:9.3f} {r['n_hub_main_classes']:8d}"
+        )
+    return results
+
+
+def run(dataset_name, seed, rho, rate_kl_lambdas, tau):
+    """Original entry point: RateKL (rho, lambdas) vs TopK vs TunedL1."""
+    input_dim, train_loader, test_loader, probe_dirs = make_probe_and_loaders(dataset_name, seed)
+    print(f"[{dataset_name} seed={seed}] Fitting class probes...")  # (already fit above)
+
+    trained_models = {}
+    for lam in rate_kl_lambdas:
+        label = f"RateKL_rho{rho}_lam{lam}"
+        print(f"[{dataset_name} seed={seed}] Training {label}...")
+        trained_models[label] = _EvalWrapper(train_rate_kl(train_loader, input_dim, rho=rho, lambda_kl=lam, tau=tau))
+
     matched_k = max(1, round(rho * latent_dim))
     print(f"[{dataset_name} seed={seed}] Training TopK (k={matched_k})...")
-    topk_model = train_topk(train_loader, input_dim, matched_k)
-    z, y = collect_latents(topk_model, test_loader)
-    results["TopK"] = absorption_scores(topk_model, z, y, probe_dirs)
+    trained_models["TopK"] = train_topk(train_loader, input_dim, matched_k)
 
     print(f"[{dataset_name} seed={seed}] Training TunedL1...")
-    l1_model = train_l1(train_loader, input_dim)
-    z, y = collect_latents(l1_model, test_loader)
-    results["TunedL1"] = absorption_scores(l1_model, z, y, probe_dirs)
+    trained_models["TunedL1"] = train_l1(train_loader, input_dim)
 
     out_path = f"results/absorption/{dataset_name}_seed{seed}.json"
+    results = {}
+    for label, model in trained_models.items():
+        z, y = collect_latents(model, test_loader)
+        results[label] = absorption_scores(model, z, y, probe_dirs)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w") as f:
         json.dump(results, f, indent=2)
 
     print(f"\n=== {dataset_name} seed={seed}: absorption (class-level adaptation of Chanin et al. 2024) ===")
-    header = f"{'Model':24s} {'Absorption':>11s} {'MainF1':>8s} {'MainMiss':>9s}"
+    header = f"{'Model':24s} {'Absorption':>11s} {'vsNull':>8s} {'MainF1':>8s} {'MainMiss':>9s} {'HubMain':>8s}"
     print(header)
     for name, r in results.items():
         print(
-            f"{name:24s} {r['mean_absorption_rate']:11.4f} {r['mean_main_f1']:8.3f} "
-            f"{r['mean_main_miss_rate']:9.3f}"
+            f"{name:24s} {r['mean_absorption_rate']:11.4f} {r['mean_absorption_above_null']:8.4f} "
+            f"{r['mean_main_f1']:8.3f} {r['mean_main_miss_rate']:9.3f} {r['n_hub_main_classes']:8d}"
         )
     return results
 
