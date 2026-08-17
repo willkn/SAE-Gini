@@ -119,21 +119,21 @@ Equation \ref{eq:ratekl} satisfies both properties motivated in Section \ref{sec
 
 \section{Positioning Rate-KL Against Leading Methods}
 \label{sec:positioning}
-We evaluate Rate-KL ($\rho{=}0.09$, two operating points) directly against Top-$k$, a Gated SAE, and Tuned $L_1$ on Fashion-MNIST, $N{=}1024$, at matched sparsity ($k$, and Rate-KL's $\rho$, both targeting $\approx$92 active features). Top-$k$ and Rate-KL values are 3-seed means $\pm$ std; Gated and Tuned $L_1$ are single-seed, included for broad positioning against the full method landscape rather than as replicated claims.
+We evaluate Rate-KL ($\rho{=}0.09$, two operating points) directly against Top-$k$, a Gated SAE, Tuned $L_1$, and Gini on Fashion-MNIST, $N{=}1024$, at matched sparsity ($k$, and Rate-KL's $\rho$, both targeting $\approx$92 active features), with every method put through the identical evaluation pipeline -- sparsity/MSE/magnitude, purity, and steering all computed the same way for all six rows -- and every method other than Gini replicated over 3 seeds.
 
 \begin{table*}[t]
 \centering
-\caption{All methods, Fashion-MNIST, $N{=}1024$, matched sparsity. Purity columns are the monosemanticity axis; Ablate/Clamp are the steering axis; MSE is the fidelity axis.}
+\caption{All methods, Fashion-MNIST, $N{=}1024$, matched sparsity, mean $\pm$ std over 3 seeds (Gini: 1 seed). Magnitude is mean $|z_f|$ among active entries; Purity columns are the monosemanticity axis; Ablate/Clamp are the steering axis; MSE is the fidelity axis.}
 \label{tab:positioning}
-\begin{tabular}{@{}lcccccc@{}}
+\begin{tabular}{@{}lccccccc@{}}
 \toprule
-Method & Sparsity & MSE & Mean purity & Top-10\% purity & Ablate & Clamp \\ \midrule
-Tuned $L_1$ & 0.548 & \textbf{0.0021} & 0.053 & 0.000 & 0.025 & 0.050 \\
-Gated SAE & 0.757 & 0.0038 & 0.093 & 0.003 & 0.024 & 0.049 \\
-Top-$k$ & $0.910{\pm}.000$ & $0.0060{\pm}.0000$ & $0.265{\pm}.006$ & $0.028{\pm}.004$ & $0.0665{\pm}.0007$ & $0.1330{\pm}.0014$ \\
-Gini & 0.910 & 0.0085 & 0.150 & 0.001 & 0.110 & 0.219 \\
-Rate-KL ($\lambda{=}0.001$) & $0.906{\pm}.004$ & $0.0097{\pm}.0001$ & $0.599{\pm}.006$ & $0.429{\pm}.036$ & $0.0766{\pm}.0114$ & $0.1531{\pm}.0227$ \\
-Rate-KL ($\lambda{=}0.01$) & $0.909{\pm}.005$ & $0.0159{\pm}.0004$ & $\mathbf{0.678{\pm}.002}$ & $\mathbf{0.525{\pm}.012}$ & $\mathbf{0.1414{\pm}.0049}$ & $\mathbf{0.2828{\pm}.0098}$ \\ \bottomrule
+Method & Sparsity & MSE & Magnitude & Mean purity & Top-10\% purity & Ablate & Clamp \\ \midrule
+Tuned $L_1$ & $0.547{\pm}.008$ & $\mathbf{0.0020{\pm}.0002}$ & $0.240{\pm}.006$ & $0.047{\pm}.006$ & $0.000{\pm}.000$ & $0.023{\pm}.001$ & $0.046{\pm}.002$ \\
+Gated SAE & $0.760{\pm}.007$ & $0.0043{\pm}.0005$ & $0.166{\pm}.001$ & $0.101{\pm}.007$ & $0.006{\pm}.000$ & $0.026{\pm}.001$ & $0.052{\pm}.001$ \\
+Top-$k$ & $0.910{\pm}.000$ & $0.0059{\pm}.0000$ & $\mathbf{0.739{\pm}.005}$ & $0.275{\pm}.006$ & $0.034{\pm}.005$ & $0.067{\pm}.003$ & $0.133{\pm}.007$ \\
+Gini & $0.913$ & $0.0088$ & $2.120$ & $0.146$ & $0.001$ & $0.126$ & $0.252$ \\
+Rate-KL ($\lambda{=}0.001$) & $0.905{\pm}.003$ & $0.0096{\pm}.0001$ & $0.335{\pm}.007$ & $0.605{\pm}.005$ & $0.442{\pm}.021$ & $0.078{\pm}.003$ & $0.156{\pm}.005$ \\
+Rate-KL ($\lambda{=}0.01$) & $0.910{\pm}.007$ & $0.0163{\pm}.0005$ & $0.338{\pm}.015$ & $\mathbf{0.683{\pm}.009}$ & $\mathbf{0.534{\pm}.015}$ & $\mathbf{0.150{\pm}.003}$ & $\mathbf{0.299{\pm}.006}$ \\ \bottomrule
 \end{tabular}
 \end{table*}
 
@@ -148,12 +148,12 @@ Rate-KL ($\lambda{=}0.01$) & $0.909{\pm}.005$ & $0.0159{\pm}.0004$ & $\mathbf{0.
     legend style={font=\tiny, at={(0.02,0.98)}, anchor=north west, draw=none, fill=none},
     tick label style={font=\scriptsize}, label style={font=\scriptsize},
 ]
-\addplot[only marks, mark=triangle*, mark size=2.5pt, color=gray] coordinates {(0.000,0.025)};
-\addplot[only marks, mark=square*, mark size=2.5pt, color=orange] coordinates {(0.003,0.024)};
-\addplot[only marks, mark=diamond*, mark size=3pt, color=red] coordinates {(0.001,0.110)};
-\addplot[only marks, mark=*, mark size=2.5pt, color=blue] coordinates {(0.028,0.0665)};
-\addplot[only marks, mark=pentagon*, mark size=3pt, color=teal] coordinates {(0.429,0.0766)};
-\addplot[only marks, mark=star, mark size=4pt, color=violet] coordinates {(0.525,0.1414)};
+\addplot[only marks, mark=triangle*, mark size=2.5pt, color=gray] coordinates {(0.000,0.023)};
+\addplot[only marks, mark=square*, mark size=2.5pt, color=orange] coordinates {(0.006,0.026)};
+\addplot[only marks, mark=diamond*, mark size=3pt, color=red] coordinates {(0.001,0.126)};
+\addplot[only marks, mark=*, mark size=2.5pt, color=blue] coordinates {(0.034,0.067)};
+\addplot[only marks, mark=pentagon*, mark size=3pt, color=teal] coordinates {(0.442,0.078)};
+\addplot[only marks, mark=star, mark size=4pt, color=violet] coordinates {(0.534,0.150)};
 \legend{Tuned $L_1$, Gated, Gini, Top-$k$, Rate-KL ($\lambda{=}.001$), Rate-KL ($\lambda{=}.01$)}
 \end{axis}
 \end{tikzpicture}
@@ -173,12 +173,12 @@ Rate-KL ($\lambda{=}0.01$) & $0.909{\pm}.005$ & $0.0159{\pm}.0004$ & $\mathbf{0.
     tick label style={font=\scriptsize}, label style={font=\scriptsize},
     x tick label style={/pgf/number format/.cd, fixed, precision=3},
 ]
-\addplot[only marks, mark=triangle*, mark size=2.5pt, color=gray] coordinates {(0.0021,0.025)};
-\addplot[only marks, mark=square*, mark size=2.5pt, color=orange] coordinates {(0.0038,0.024)};
-\addplot[only marks, mark=*, mark size=2.5pt, color=blue] coordinates {(0.0060,0.0665)};
-\addplot[only marks, mark=diamond*, mark size=3pt, color=red] coordinates {(0.0085,0.110)};
-\addplot[only marks, mark=pentagon*, mark size=3pt, color=teal] coordinates {(0.0097,0.0766)};
-\addplot[only marks, mark=star, mark size=4pt, color=violet] coordinates {(0.0159,0.1414)};
+\addplot[only marks, mark=triangle*, mark size=2.5pt, color=gray] coordinates {(0.0020,0.023)};
+\addplot[only marks, mark=square*, mark size=2.5pt, color=orange] coordinates {(0.0043,0.026)};
+\addplot[only marks, mark=*, mark size=2.5pt, color=blue] coordinates {(0.0059,0.067)};
+\addplot[only marks, mark=diamond*, mark size=3pt, color=red] coordinates {(0.0088,0.126)};
+\addplot[only marks, mark=pentagon*, mark size=3pt, color=teal] coordinates {(0.0096,0.078)};
+\addplot[only marks, mark=star, mark size=4pt, color=violet] coordinates {(0.0163,0.150)};
 \legend{Tuned $L_1$, Gated, Top-$k$, Gini, Rate-KL ($\lambda{=}.001$), Rate-KL ($\lambda{=}.01$)}
 \end{axis}
 \end{tikzpicture}
@@ -193,9 +193,9 @@ Rate-KL ($\lambda{=}0.01$) & $0.909{\pm}.005$ & $0.0159{\pm}.0004$ & $\mathbf{0.
 
 \textbf{Steering:} Rate-KL wins at $\lambda{=}0.01$ ($0.141$ ablate, the best of any method) and is competitive at $\lambda{=}0.001$ ($0.077$, above Gated and Tuned $L_1$, below Top-$k$'s $0.067$... narrowly above, in fact). This is not universal: on MNIST specifically (Section \ref{sec:ratekl-results}), Top-$k$'s raw ablation number exceeds Rate-KL's, but Top-$k$'s top-decile purity there is $0.001$ -- the same hub artifact as Section \ref{sec:diagnosis}, occurring under Top-$k$ instead of Gini. We report this honestly rather than only on the dataset that favors Rate-KL.
 
-\textbf{Magnitude:} We report per-feature magnitude directly only for the methods in Table \ref{tab:diagnosis}'s protocol (Gini, Top-$k$, Gated, Tuned $L_1$), where Gini's active-feature magnitude is $3\times$ Top-$k$'s. We did not separately log raw magnitude for Rate-KL in this evaluation pass; because ablation impact is exactly $|z_f|\cdot\lVert W_f\rVert$ and decoder norms are architecture-matched across methods, Rate-KL's steering advantage is indirect evidence of a magnitude advantage in the same direction, but we do not claim a directly measured number here and flag this as an evaluation gap to close.
+\textbf{Magnitude: the opposite of what we expected, and a genuine mechanistic finding.} We had speculated that Rate-KL's steering advantage was indirect evidence of a magnitude advantage, since ablation impact is exactly $|z_f|\cdot\lVert W_f\rVert$. Direct measurement contradicts this: Rate-KL's active-feature magnitude ($0.335$--$0.338$) is \emph{lower} than Top-$k$'s ($0.739$), not higher -- Gini, not Rate-KL, is the outlier here, at $2.120$ ($6\times$ Top-$k$'s). Since Rate-KL nonetheless produces higher ablation impact than Top-$k$ at lower activation magnitude, the arithmetic of $|z_f|\cdot\lVert W_f\rVert$ requires that Rate-KL's active features have substantially larger decoder-column norms than Top-$k$'s. We read this as evidence that Rate-KL's steering advantage operates through a different channel than the shrinkage story that originally motivated this work: not restored \emph{activation} magnitude, but the decoder learning higher-norm weights specifically for the small, identity-consistent set of features Rate-KL's rate constraint keeps reliably selecting. We did not directly measure decoder-column norms in this pass to confirm this quantitatively; doing so is immediate follow-up work, not a redesign.
 
-\textbf{Fidelity: Rate-KL loses, clearly and worst-in-class.} MSE at $\lambda{=}0.01$ ($0.0159$) is not just worse than Top-$k$'s ($0.0060$, $2.7\times$) -- it is worse than \emph{every} method in Table \ref{tab:positioning}, including Gini ($0.0085$), the method this paper spends most of its length diagnosing as broken. This is the real, unglamorous cost of concentrating reconstruction responsibility onto fewer, more selective, higher-magnitude features, and Figure \ref{fig:fidelity-steer} is designed to make that cost impossible to miss.
+\textbf{Fidelity: Rate-KL loses, clearly and worst-in-class.} MSE at $\lambda{=}0.01$ ($0.0163$) is not just worse than Top-$k$'s ($0.0059$, $2.8\times$) -- it is worse than \emph{every} method in Table \ref{tab:positioning}, including Gini ($0.0088$), the method this paper spends most of its length diagnosing as broken. This is the real, unglamorous cost of concentrating reconstruction responsibility onto fewer, more selective, higher-decoder-norm features (Rate-KL's own activation magnitude is not elevated, per the finding above), and Figure \ref{fig:fidelity-steer} is designed to make that cost impossible to miss.
 
 \subsection{Multi-Seed, Multi-Dataset Replication}
 \label{sec:ratekl-results}
@@ -244,7 +244,7 @@ To prevent dead neurons under objectives without a boundary-escalating penalty (
 \item \textbf{Fidelity cost, quantified and worst-in-class.} Rate-KL's best steering configuration has worse reconstruction than every method we compare against, including the broken Gini baseline (Section \ref{sec:positioning}).
 \item \textbf{Activity bimodality} (Section \ref{sec:bimodality}) is a real, dataset- and $\lambda$-dependent failure requiring an explicit validity gate; we do not yet have a general fix.
 \item \textbf{Feature absorption} \citep{chanin2024absorption} is a distinct sparsity-induced pathology from the hub failure this paper centers on. We tested whether Rate-KL is more robust to it than Top-$k$ using a class-level adaptation of their metric; the result was inconclusive on two of three datasets (weak CIFAR-10 pixel-space probes, an MNIST floor effect) and, on the one dataset where the metric was trustworthy, a fix for a secondary rate-mismatch mechanism (target rate $\rho$ below a concept's natural frequency, which can independently manufacture absorption-like pressure) increased rather than decreased measured absorption. We do not make a claim in either direction and leave a sounder version of this metric to future work.
-\item \textbf{Magnitude was not directly measured for Rate-KL} in this evaluation pass (Section \ref{sec:positioning}); closing this gap is immediate future work.
+\item \textbf{Decoder-column norms are not yet directly measured.} Section \ref{sec:positioning} shows Rate-KL's steering advantage cannot be explained by activation magnitude (it is \emph{lower} than Top-$k$'s), implying larger decoder-column norms on its active features; we infer this from the ablation-impact arithmetic rather than measuring it directly, and closing that gap is immediate follow-up work.
 \item \textbf{Generality of the failure mode} (Section \ref{sec:method-gini}) is argued structurally, not tested empirically beyond the Gini instance -- we have not run other distribution-shape penalties (e.g.\ Theil index) to confirm the same failure recurs.
 \end{itemize}
 
