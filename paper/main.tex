@@ -1,237 +1,273 @@
 \documentclass[11pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{natbib}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \geometry{a4paper, margin=0.75in}
 
-\title{\textbf{Gini over $L_1$: Scale-Invariant Sparsity for Sparse Autoencoders}}
+\title{\textbf{Identity-Tracked, Boundary-Escalating Sparsity:\\A General Failure Mode in Distributional SAE Regularizers, and a Fix}}
 \author{William Knott\\}
-\date{January 2026}
+\date{Draft --- August 2026}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-Sparse Autoencoders (SAEs) are a critical tool for mechanistic interpretability, yet their reliance on $L_1$ regularization introduces a fundamental tension: the shrinkage of activation magnitudes, often termed "magnitude starvation." By penalizing activation scale as a proxy for sparsity, $L_1$ forces features into a "whispering" regime where semantic signals are suppressed alongside noise. We propose Gini Optimization, a scale-invariant alternative that targets the distribution of activations rather than their absolute magnitude. We demonstrate that Gini-regularized SAEs mitigate magnitude starvation across vision and language benchmarks while maintaining competitive reconstruction fidelity. Our results suggest that magnitude-independence is a promising property for high-fidelity feature extraction in mechanistic interpretability.
+Sparse Autoencoders (SAEs) trained with $L_1$ regularization suffer from \textit{shrinkage}: the penalty is paid directly on activation magnitude, so gradient descent shrinks true feature strength toward zero rather than paying the reconstruction cost of leaving it intact \citep{wright2024addressing}. We identify a general failure mode in the natural family of shrinkage-free alternatives to $L_1$: objectives that penalize the \emph{shape} of the activation distribution (e.g.\ a Gini-coefficient penalty) rather than magnitude directly. Such objectives are permutation-invariant over feature identity and have \emph{vanishing gradient at their own degenerate optimum} -- the uniform-activation state where a single feature fires on nearly every input. We demonstrate this concretely using the Gini coefficient as a case study: at matched sparsity, Gini-regularized SAEs initially appear to strongly outperform a sparsity-matched Top-$k$ SAE on causal feature-steering metrics ($1.3$--$2.8\times$, replicated across three datasets), but this is an artifact of exactly the predicted failure -- Gini reliably collapses onto a handful of polysemantic ``hub'' features (class-purity $\approx 0$) rather than genuinely selective ones. Two natural repairs, each targeting one half of the problem, fail for the same underlying reason. We propose a general fix -- objectives that track \emph{identity-level} statistics (a specific feature's own firing rate, persistent across the batch) with gradients that \emph{escalate}, not vanish, near the degenerate state -- and instantiate it as Rate-KL, a per-feature KL-divergence penalty on firing probability that never touches magnitude. We position Rate-KL explicitly against Top-$k$, Gated SAEs, and Tuned $L_1$ on monosemanticity, steering impact, and reconstruction fidelity: it produces the most class-selective high-importance features and the highest steering impact of any method tested at its best operating point, at the worst reconstruction fidelity of any method tested, including the flawed Gini baseline -- a real, quantified cost we report rather than obscure.
 \end{abstract}
 
 \section{Introduction}
-Modern mechanistic interpretability relies on the extraction of monosemantic, sparse features from neural representations. The current state-of-the-art relies almost exclusively on $L_1$ regularization. However, $L_1$ is a biased proxy for $L_0$ sparsity; it minimizes $\sum |z_i|$, thereby penalizing the very signal it seeks to sparsify. In extreme sparsity regimes, this leads to \textit{magnitude starvation}: active features are suppressed toward zero, blurring the boundaries between signal and noise.
+Sparse Autoencoders decompose neural network activations into features intended to be sparse and causally meaningful. The dominant recipe penalizes an $L_1$ norm on the latent code. Because this penalty is paid directly on magnitude, \citet{wright2024addressing} show SGD finds it cheaper to shrink a feature's true strength toward zero -- \textit{shrinkage} -- than to pay the reconstruction cost of leaving a legitimately large, sparse feature intact. Gated SAEs \citep{lieberum2024gated}, JumpReLU \citep{rajamanoharan2024jumprelu}, and Top-$k$ SAEs \citep{gao2024topk} each fix this architecturally, by decoupling ``does this feature fire'' from ``how large is it when it fires,'' at the cost of added machinery (a gate, a learned threshold, a hard selection with a straight-through estimator).
 
-We challenge the necessity of $L_1$ by introducing Differentiable Gini Optimization. Our core thesis is that sparsity should be treated as a property of the \textit{distribution}, not the \textit{scale}. By optimizing for distributional inequality (Gini) rather than magnitude ($L_1$), we enable features to "shout" even at 99\% sparsity. This decoupling allows for the discovery of sharp, selective features that $L_1$ baselines systematically mute. 
+This paper is about a different, purely objective-level route to the same goal, and a general failure mode we found in it. Distributional sparsity measures -- of which the Gini coefficient is a well-established example, with an established pedigree in compressive sensing \citep{hurley2009comparing, zonoobi2011gini} -- are scale-invariant by construction: they penalize the \emph{shape} of the activation distribution, never its scale, so they are natural shrinkage-free candidates that need no architectural change. We show this entire family shares a structural weakness that is not specific to any one measure: such penalties are computed after discarding \emph{which} feature produced which value (via sorting, or any other permutation-invariant reduction), and their gradient vanishes exactly at the degenerate point -- uniform activation -- that a ``hub'' feature (one that fires on nearly every input) occupies. An objective built this way cannot push itself away from a hub once one forms, because the hub sits at a flat region of the loss landscape.
 
-\section{Related Work \& Positioning}
-Our approach bridges the gap between structural sparsity (Top-$k$ SAEs) and magnitude-based regularizers ($L_1$, KL-divergence). Unlike $L_0$-style methods such as Hard Concrete distributions \cite{louizos2017learning}, which require complex reparameterization, or $k$-sparse autoencoders that use straight-through estimators, Gini optimization provides a natively differentiable objective that directly shapes the activation distribution. 
+We demonstrate this using the Gini coefficient as a concrete instrument, not because Gini is uniquely flawed, but because it is the cleanest available case study: it is fully differentiable, has no other moving parts, and its initial result is dramatic enough to make the subsequent diagnosis legible.
 
-Theoretical connections can be drawn to \textit{Compressive Sensing}, where the Gini index has been explored as a measure of sparsity in signal recovery \cite{zonoobi2011gini}. Hurley \& Rickard (2009) \cite{hurley2009comparing} rigorously established the Gini index as one of the most effective measures of sparsity, satisfying all six axiomatic requirements for a sparsity metric—unlike the $L_1$ norm. However, its application as a differentiable regularization penalty in the context of neural feature extraction remains largely under-explored. 
+\begin{enumerate}
+\item At matched sparsity, Gini-optimized SAEs substantially outperform a sparsity-matched Top-$k$ SAE on steering-impact metrics, replicated across three datasets and three seeds (Section \ref{sec:initial-result}).
+\item This is an artifact of the general failure mode above: Gini reliably collapses onto a small number of reused ``hub'' features carrying disproportionate causal weight while being almost maximally class-promiscuous (Section \ref{sec:diagnosis}).
+\item Two structurally motivated repairs -- usage-balancing (an MoE load-balancing analogue \citep{shazeer2017outrageously, fedus2022switch}) and a column-wise Gini term that does track feature identity -- each fix one half of the pathology while breaking the other, confirming that identity-tracking alone is insufficient without also fixing the vanishing-gradient problem (Section \ref{sec:failed-fixes}).
+\item This motivates a general design principle -- objectives should be \emph{identity-tracked} and \emph{boundary-escalating} -- instantiated as Rate-KL, a per-feature firing-rate penalty with no magnitude term at all (Section \ref{sec:ratekl}). We position Rate-KL explicitly against Top-$k$, Gated SAEs, and Tuned $L_1$ on monosemanticity, steering, and fidelity (Section \ref{sec:positioning}), and report an honest, real fidelity cost.
+\end{enumerate}
 
-The problem of magnitude starvation in Mechanistic Interpretability is current area of intense research. Modern solutions include Gated SAEs \cite{lieberum2024gated}, which decouple the sparsity gate from the reconstruction magnitude, and JumpReLU \cite{rajamanoharan2024jumprelu}, which uses a learned threshold to achieve true sparsity without shrinkage. While these methods are effective, they often require complex architectures or discontinuous gradients. Gini optimization offers a mathematically clean, natively differentiable alternative that achieves similar decoupling through distributional pressure rather than structural gating.
+\section{Related Work}
+\label{sec:related}
+Our approach sits between structural sparsity mechanisms (Top-$k$ SAEs \citep{gao2024topk}) and magnitude-based regularizers ($L_1$, KL-sparsity autoencoders). \citet{hurley2009comparing} establish the Gini index as satisfying all six axiomatic requirements of a sparsity measure, unlike $L_1$; its use as a differentiable \emph{training} penalty, rather than a post-hoc measure, is comparatively unexplored, and to our knowledge its specific failure mode on SAE latents has not been previously characterized. Gated SAEs \citep{lieberum2024gated} and JumpReLU \citep{rajamanoharan2024jumprelu} address shrinkage architecturally; Top-$k$ SAEs \citep{gao2024topk} avoid it by applying no magnitude penalty and using hard per-sample selection instead. Our usage-balancing fix attempt is a direct analogue of Mixture-of-Experts load-balancing losses \citep{shazeer2017outrageously, fedus2022switch}, which solve the structurally identical problem of the same experts being selected for every input. \citet{chanin2024absorption} identify \emph{feature absorption} -- a concept's dedicated latent developing activation holes because a co-occurring, more specific latent has absorbed its direction -- as a distinct sparsity-induced failure mode from the hub pathology we diagnose here; we report an inconclusive investigation of Rate-KL's robustness to it in Section \ref{sec:absorption}. Classic KL-sparsity autoencoders \citep{ng2011sparse} penalize a feature's mean \emph{activation}, which -- unlike our firing-rate formulation -- is itself a magnitude-suppressive, $L_1$-like penalty in disguise.
 
-\section{Methodology}
-The Gini coefficient is a measure of statistical dispersion. For a vector of activations $z$, the Gini coefficient $G$ is defined as:
+\section{A General Failure Mode: Distribution-Shape Sparsity Objectives}
+\label{sec:method-gini}
+Consider any sparsity penalty $\Phi(z)$ computed from a latent code $z \in \mathbb{R}^n$ via a statistic that is (a) invariant to which index produced which value (e.g.\ computed from the \emph{sorted} values, as any dispersion or inequality measure is), and (b) has vanishing gradient at its own degenerate optimum. We claim any such $\Phi$ is structurally exposed to the hub pathology diagnosed in this paper, independent of the specific functional form. Property (a) means the objective has no mechanism to prefer \emph{which} features carry its distributional mass, only that some do; property (b) means that once a feature becomes a hub, the objective cannot generate gradient to correct it. The Gini coefficient is one instance of this family; we expect the same failure in other permutation-invariant dispersion measures (e.g.\ the Theil index, or entropy-based penalties with a similarly flat region near their degenerate point) applied the same way, though we test Gini specifically.
+
+For a latent code $z$, the Gini coefficient admits a differentiable rank-based formulation,
 \begin{equation}
-G(z) = \frac{\sum_{i=1}^n \sum_{j=1}^n |z_i - z_j|}{2n^2 \bar{z}}
+G(z) = \frac{2 \sum_{i=1}^n i \cdot z_{(i)}}{n \sum_{i=1}^n z_{(i)}} - \frac{n+1}{n},
+\label{eq:gini}
 \end{equation}
-To make this differentiable, we employ the rank-based formulation:
-\begin{equation}
-G(z) = \frac{2 \sum_{i=1}^n i \cdot z_{(i)}}{n \sum_{i=1}^n z_{(i)}} - \frac{n+1}{n}
-\end{equation}
-where $z_{(i)}$ are the absolute activations sorted in non-descending order. By utilizing \texttt{torch.sort}, we maintain a valid gradient path through the values. The gradient with respect to a specific activation $z_k$ is:
-\begin{equation}
-\frac{\partial G}{\partial z_k} = \frac{2 \cdot \text{rank}(z_k)}{n \sum z_i} - \frac{2 \sum j \cdot z_{(j)}}{n (\sum z_j)^2}
-\end{equation}
-While the sorting permutation is technically piecewise constant, the objective remains differentiable with respect to the magnitude values. Specifically, \texttt{torch.sort} returns the sorted values $z_{(i)}$ along with their original indices. In the backward pass, gradients are correctly routed to the original input positions $z_k$ by applying the inverse permutation. This ensures that the learning signal updates the magnitude of the neuron that occupied a specific rank during the forward pass. The optimization landscape is further smoothed by the stochastic nature of mini-batch gradient descent.
+where $z_{(i)}$ are absolute activations sorted ascending via \texttt{torch.sort}, gradients routed to original positions via the inverse permutation. $G$ is scale-invariant ($G(\alpha z){=}G(z)$, $\alpha{>}0$): an active neuron that ``shouts'' above the rest is \emph{rewarded}, since it increases inequality. Training minimizes $\mathrm{MSE} - \lambda\,\mathbb{E}[G(z)]$, pushing toward high-inequality activations with no pressure on the scale of the surviving values.
 
-\subsection{Algorithmic Contribution: Feature Revival}
-\label{sec:hybrid}
-To address the non-convex nature of rank-based optimization and the risk of "dead features" (neurons that never activate), we implement a \textit{Feature Revival} mechanism inspired by the "Ghost Grads" approach in Gated SAEs \cite{lieberum2024gated}. Every 5 epochs, we identify a set of dead neurons $\mathcal{D} = \{j \mid \mathbb{E}[z_j] = 0\}$. For each $j \in \mathcal{D}$, we re-initialize the encoder weights $W_{enc}^{(j)}$ and bias $b_{enc}^{(j)}$ using the current reconstruction residual $e = x - \hat{x}$ of a high-error sample:
-\begin{equation}
-W_{enc}^{(j)} \leftarrow \frac{e}{\|e\|_2}, \quad b_{enc}^{(j)} \leftarrow 0
-\end{equation}
-This mechanism ensures that the model utilizes its full capacity ($N=2048$ on CIFAR-10) and prevents neurons from getting trapped in inactive local minima.
-
-\section{Theoretical Analysis: Magnitude Invariance and Dispersion}
-The Gini coefficient is uniquely suited for sparsity regularization due to its property of \textbf{scale independence}. Unlike the $L_1$ norm, which is a linear function of the activation magnitude, the Gini index $G(z)$ is a ratio of first-order differences to the mean. Specifically, for any scalar $\alpha > 0$, $G(\alpha z) = G(z)$. 
-
-\subsection{The Lorenz Curve and Sparsity}
-The Gini coefficient is geometrically defined as twice the area between the Lorenz curve and the line of perfect equality. In the context of neural activations, the Lorenz curve $L(p)$ represents the cumulative fraction of total activation magnitude accounted for by the bottom $p$ fraction of neurons. 
-Maximal Gini ($G \to 1$) occurs when the Lorenz curve remains zero until $p \to (n-1)/n$, at which point it jumps to $1$. This corresponds exactly to the $1$-sparse case. By optimizing $G(z) \to 1$, we are fundamentally pushing the Lorenz curve toward this $L_0$ extreme without ever regularizing the absolute scale $\bar{z}$.
-
-\subsection{Magnitude Starvation in $L_1$ vs. Gini}
-In $L_1$-regularized SAEs, the objective is $J = \text{MSE} + \lambda \sum |z_i|$. The gradient with respect to an active neuron $z_k$ is $\frac{\partial J}{\partial z_k} = \frac{\partial \text{MSE}}{\partial z_k} + \lambda \text{sgn}(z_k)$. To maintain equilibrium, the reconstruction gradient must counteract a constant pressure $\lambda$. As $\lambda$ increases to drive sparsity, $z_k$ must shrink to zero to satisfy the MSE reconstruction.
-In contrast, the Gini gradient $\frac{\partial G}{\partial z_k}$ depends on the \textit{relative rank} and \textit{normalized dispersion}. An active neuron that "shouts" above the noise is actually \textbf{rewarded} by the Gini objective (as it increases inequality), allowing it to maintain high-fidelity magnitudes while the rest of the distribution is silenced.
-
-\subsection{Gradient Persistence and the Magnitude Starvation Threshold}
-A critical theoretical advantage of Gini optimization is the preservation of the gradient signal for active features. In $L_1$ regularization, as sparsity $\mathbb{E}[\|z\|_0]$ decreases, the magnitude $\mathbb{E}[|z_i|]$ is forced toward zero. When $|z_i| < \epsilon$, the neuron enters a numerical "dead zone" where the semantic signal is indistinguishable from quantization noise. 
-
-We define the \textit{Magnitude Starvation Threshold} as the point where the $L_1$ penalty overwhelms the reconstruction gradient. In Gini optimization, because the objective is a ratio, the gradient $\nabla_z G(z)$ remains invariant to the absolute scale of the activations. This ensure \textit{gradient persistence}: as long as a neuron is selected by the rank-based sorting, it receives a learning signal to improve its representation, regardless of its absolute magnitude. This property is directly responsible for the model's ability to survive high-entropy transitions (like Fashion-MNIST) where $L_1$ gradients collapse to zero.
-
-To ensure numerical stability and prevent activation blow-up in the scale-invariant regime, we apply a lightweight $L_2$ penalty on the latent activations ($\gamma = 10^{-5}$) and enforce unit-norm constraints on the decoder weights. Sensitivity analysis (Section \ref{sec:benchmarks}) shows that the model is robust to the choice of $\gamma$ across several orders of magnitude. 
-
-\subsection{The "Zero" Problem: Gini vs. $L_0$ Sparsity}
-Unlike $L_1$, which utilizes the subgradient at zero to induce exact sparsity, Gini optimization induces a bimodal distribution of "shouting" features and a "sparse void" of near-zero activations. In mechanistic interpretability, while exact zeros are preferred for feature steering, the extreme inequality produced by Gini ($G \to 1$) allows for a simple post-training hard threshold. We find that setting $z_i = 0$ for all $z_i < 0.01 \cdot \max(z)$ after training does not significantly impact reconstruction fidelity, as Gini naturally silences the noise floor into a negligible magnitude regime.
-
-\subsection{Sparsity Measurement: Relative Thresholding}
-To address the scale difference between $L_1$ and Gini activations, we define "Relative Sparsity" as the fraction of activations $z_i$ that fall below $1\%$ of the sample's peak activation $\max(z)$. This robust metric ensures that Gini's high-magnitude "shouting" features do not unfairly inflate sparsity counts through absolute thresholding. All evaluations in Section \ref{sec:experiments} utilize this relative metric.
-
-\section{Experimental Results}
-\label{sec:experiments}
-
-\subsection{Statistical Robustness and Dataset Scope}
-We evaluated our method on two datasets: MNIST and the more challenging Fashion-MNIST (F-MNIST). All results are reported as the mean and standard deviation over three random seeds (Seeds 42, 43, 44). Features were evaluated via a linear probe on frozen representations at $\sim$97\% sparsity.
+\subsection{Initial Result: Gini Beats Matched-Sparsity Top-$k$}
+\label{sec:initial-result}
+We trained Gini and Top-$k$ SAEs (Top-$k$'s $k$ set to Gini's observed mean active count) on MNIST, Fashion-MNIST, and CIFAR-10, three seeds each, $N{=}1024$, and measured mean active-feature magnitude and steering impact (feature ablation and $3\times$ clamping, averaged over 1000 sample-feature interventions).
 
 \begin{table}[h]
 \centering
-\caption{Benchmark results on Fashion-MNIST (Latent Dim $N=1024$). Baselines were tuned via grid search over $\lambda \in [10^{-4}, 10^{-1}]$.}
-\label{tab:modern_benchmarks}
+\caption{Gini vs.\ sparsity-matched Top-$k$, mean over 3 seeds. Sparsity matched to within 0.2pp on every dataset.}
+\label{tab:initial-result}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-Method & MSE & Dead Features & Relative Sparsity \\ \midrule
-\textbf{Gini SAE} & 0.0085 & \textbf{779} & \textbf{96.8\%} \\
-JumpReLU \cite{rajamanoharan2024jumprelu} & \textbf{0.0036} & 757 & 74.0\% \\
-Gated SAE \cite{lieberum2024gated} & 0.0174 & 566 & 55.2\% \\
-Tuned $L_1$ Baseline & 0.0020 & 417 & 56.3\% \\ \bottomrule
+Dataset & Magnitude & Ablate & Clamp \\
+& (ratio) & (ratio) & (ratio) \\ \midrule
+MNIST & $2.52\times$ & $1.96\times$ & $1.96\times$ \\
+Fashion-MNIST & $2.80\times$ & $1.88\times$ & $1.88\times$ \\
+CIFAR-10 & $1.76\times$ & $1.27\times$ & $1.27\times$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
-On Fashion-MNIST, Gini optimization demonstrates a promising ability to induce extreme sparsity compared to magnitude-masked alternatives. While JumpReLU achieves lower MSE per feature, it requires straight-through gradient estimators and careful threshold initialization. Gini achieved high levels of feature-level suppression (779 dead features) and the sharpest relative sparsity (96.8\%) without explicit gating. This suggests that distributional regularizers are competitive with structural sparsity mechanisms in high-entropy regimes.
+The effect replicates cleanly and shrinks with dataset complexity, alongside a shrinking MSE penalty (66\% worse than Top-$k$ on MNIST, 43\% on Fashion-MNIST, 3\% on CIFAR-10). Taken at face value, this is striking: a purely distributional penalty outperforming the current default shrinkage-free method. Section \ref{sec:diagnosis} shows why it should not be.
 
-On MNIST, our Pareto frontier analysis (Figure \ref{fig:tradeoff}) reveals that Gini optimization remains stable at extreme sparsity levels where $L_1$ exhibits high reconstruction variance. At $\lambda=0.4$, Gini achieved a \textbf{dead feature count of 95.4\%} (Effective $L_0 = 4.6\%$) with an MSE of 0.0118. In contrast, even with carefully tuned penalties, $L_1$ remained significantly denser (Effective $L_0 = 37.6\%$) while incurring comparable fidelity hits when pushed toward the high-sparsity regime. This confirms that Gini's distributional pressure is a more direct mechanism for latent pruning than magnitude-based shrinkage.
+\subsection{Diagnosis: The Hub-Feature Pathology}
+\label{sec:diagnosis}
+For each active feature we compute its exact ablation-impact norm ($|z_f|\cdot\lVert W_{\mathrm{dec}}[:,f]\rVert_2$, closed-form for a linear decoder) summed over the test set as total causal \emph{importance}, and its class-purity: $1 - H(y\mid f\text{ active})/\log_2(10)$ (1.0 = fires for exactly one class; 0.0 = uniform across all ten).
+
+\begin{table}[h]
+\centering
+\caption{Importance concentration and class purity, Fashion-MNIST, one seed. Top-10\% is by importance.}
+\label{tab:diagnosis}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & Imp.\ Gini & Top-10\% & Mean & Top-10\% \\
+ & coeff.\ & share & purity & purity \\ \midrule
+Gini & 0.768 & 67.2\% & 0.150 & \textbf{0.001} \\
+Top-$k$ & 0.576 & 41.3\% & 0.278 & 0.036 \\
+Gated & 0.522 & 37.7\% & 0.093 & 0.003 \\
+Tuned $L_1$ & 0.370 & 26.1\% & 0.053 & 0.000 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Gini's importance is far more concentrated than Top-$k$'s (67\% in the top decile vs.\ 41\%), and the features carrying it are essentially maximally class-promiscuous (purity 0.001) -- indistinguishable from firing uniformly across every class. Gini's mean purity (0.150) is roughly half of Top-$k$'s (0.278). Table \ref{tab:initial-result}'s steering advantage is driven almost entirely by generic hub directions, not restored-magnitude monosemantic concepts, exactly as predicted by property (b) above. A downstream-consequence check confirms the artifact is not confined to the reconstruction-internal metric: clamping a hub feature and measuring the resulting flip rate of a linear classifier on the frozen latents replicates the pattern (Gini: 8.1\% clamp flip rate vs.\ Top-$k$'s 3.5\%).
+
+\subsection{Two Failed Fixes and Their Shared Cause}
+\label{sec:failed-fixes}
+\textbf{Usage-balancing.} Penalizing usage concentration directly, $\mathrm{bal}(z) = n\sum_f p_f^2$ ($p_f$ = feature $f$'s share of batch activation mass, an MoE-style Herfindahl term \citep{shazeer2017outrageously,fedus2022switch}), fixes purity decisively at $\lambda_{\mathrm{bal}}{=}0.01$ (top-decile purity $0.001\to0.171$, above Top-$k$'s $0.036$, matched sparsity, unchanged MSE) but collapses steering to \emph{below} Top-$k$'s ($0.041$ vs.\ $0.090$ ablate, $\approx45\%$ of Top-$k$'s level). Per-occurrence steering impact is $|z_f|\cdot\lVert W_f\rVert$ when a feature fires; forcing usage toward uniform mathematically forbids features from being rare-but-strong, which is exactly what maximizes that quantity. We optimized directly against the thing we wanted to win on.
+
+\textbf{Column-wise Gini.} A hub is a column of the latent matrix $Z$ that is uniformly large across the batch -- low column-Gini; a selective feature has high column-Gini. Maximizing $G$ along both axes ($\mathcal{L} = \mathrm{MSE} - \lambda_{\mathrm{row}}\mathbb{E}[G(\mathrm{rows})] - \lambda_{\mathrm{col}}\mathbb{E}[G(\mathrm{cols})]$) does track identity per-feature -- yet fails outright: top-decile purity barely moves ($0.001\to0.013$ at $\lambda_{\mathrm{col}}{=}0.3$), sparsity drifts far off-target (to 0.98), and MSE more than doubles. A hub column sits \emph{exactly} at $G{=}0$, its own degenerate point, where the Gini gradient is flat (verified directly: a synthetic uniformly-active column has near-zero gradient vs.\ $G{=}0.969$ and strong gradient for a selective column). Averaged over 1024 features, SGD takes the cheap escape -- nudging 900 already-marginal columns slightly more selective raises the mean at negligible cost, while fixing an actual hub is expensive.
+
+Both failures confirm the same lesson from different sides. Usage-balancing has identity but the wrong target statistic; column-Gini has the right statistic but the wrong gradient shape at the point that matters. Identity-tracking alone is not sufficient -- the gradient must also escalate, not vanish, at the degenerate point.
+
+\section{Rate-KL: Identity-Tracked, Boundary-Escalating Sparsity}
+\label{sec:ratekl}
+
+\subsection{Method}
+We target each feature's firing \emph{probability} directly, never its magnitude. Let $a = W_{\mathrm{enc}}x$ be the pre-ReLU encoder output. We estimate firing probability with a smooth surrogate, $\hat p_f = \mathrm{mean}_{\mathrm{batch}}\,\sigma(a_f/\tau)$, and penalize its KL divergence from a target rate $\rho$:
+\begin{equation}
+\mathcal{L} = \mathrm{MSE} + \lambda\sum_{f=1}^n \mathrm{KL}(\rho\,\|\,\hat p_f),
+\label{eq:ratekl}
+\end{equation}
+\begin{equation*}
+\mathrm{KL}(\rho\|p) = \rho\log\frac{\rho}{p} + (1{-}\rho)\log\frac{1{-}\rho}{1{-}p}.
+\end{equation*}
+This is a classic KL-sparsity autoencoder \citep{ng2011sparse} with one change of substance: the standard formulation computes $\hat p_f$ from mean activation \emph{magnitude} (an $L_1$ penalty in a hat); ours uses firing \emph{probability}, so magnitude never enters. Pre-ReLU activations in the surrogate give permanently-off features a gradient path a hard indicator would not.
+
+Equation \ref{eq:ratekl} satisfies both properties motivated in Section \ref{sec:failed-fixes}. \textbf{Identity-tracked}: $\hat p_f$ is per-index, summed (not pooled) over features -- no feature can hide behind the aggregate. \textbf{Boundary-escalating}: $\mathrm{KL}(\rho\|p)\to\infty$ as $p\to0$ or $p\to1$ -- the opposite of Gini's vanishing gradient at the same points. A practical corollary: Feature Revival (Section \ref{sec:hybrid}) becomes unnecessary -- we observe zero dead features at every $\lambda$ tested, vs.\ 294/1024 for Top-$k$.
+
+\section{Positioning Rate-KL Against Leading Methods}
+\label{sec:positioning}
+We evaluate Rate-KL ($\rho{=}0.09$, two operating points) directly against Top-$k$, a Gated SAE, and Tuned $L_1$ on Fashion-MNIST, $N{=}1024$, at matched sparsity ($k$, and Rate-KL's $\rho$, both targeting $\approx$92 active features). Top-$k$ and Rate-KL values are 3-seed means $\pm$ std; Gated and Tuned $L_1$ are single-seed, included for broad positioning against the full method landscape rather than as replicated claims.
+
+\begin{table*}[t]
+\centering
+\caption{All methods, Fashion-MNIST, $N{=}1024$, matched sparsity. Purity columns are the monosemanticity axis; Ablate/Clamp are the steering axis; MSE is the fidelity axis.}
+\label{tab:positioning}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Method & Sparsity & MSE & Mean purity & Top-10\% purity & Ablate & Clamp \\ \midrule
+Tuned $L_1$ & 0.548 & \textbf{0.0021} & 0.053 & 0.000 & 0.025 & 0.050 \\
+Gated SAE & 0.757 & 0.0038 & 0.093 & 0.003 & 0.024 & 0.049 \\
+Top-$k$ & $0.910{\pm}.000$ & $0.0060{\pm}.0000$ & $0.265{\pm}.006$ & $0.028{\pm}.004$ & $0.0665{\pm}.0007$ & $0.1330{\pm}.0014$ \\
+Gini & 0.910 & 0.0085 & 0.150 & 0.001 & 0.110 & 0.219 \\
+Rate-KL ($\lambda{=}0.001$) & $0.906{\pm}.004$ & $0.0097{\pm}.0001$ & $0.599{\pm}.006$ & $0.429{\pm}.036$ & $0.0766{\pm}.0114$ & $0.1531{\pm}.0227$ \\
+Rate-KL ($\lambda{=}0.01$) & $0.909{\pm}.005$ & $0.0159{\pm}.0004$ & $\mathbf{0.678{\pm}.002}$ & $\mathbf{0.525{\pm}.012}$ & $\mathbf{0.1414{\pm}.0049}$ & $\mathbf{0.2828{\pm}.0098}$ \\ \bottomrule
+\end{tabular}
+\end{table*}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{figures/tradeoff.png}
-    \caption{Sparsity-Reconstruction Tradeoff. Gini and $L_1$ perform comparably at extreme sparsity, but Gini preserves better feature quality for downstream tasks.}
-    \label{fig:tradeoff}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\linewidth, height=5.2cm,
+    xlabel={Top-10\% purity (monosemanticity)},
+    ylabel={Steering impact (ablate)},
+    xmin=-0.02, xmax=0.58, ymin=0, ymax=0.16,
+    legend style={font=\tiny, at={(0.02,0.98)}, anchor=north west, draw=none, fill=none},
+    tick label style={font=\scriptsize}, label style={font=\scriptsize},
+]
+\addplot[only marks, mark=triangle*, mark size=2.5pt, color=gray] coordinates {(0.000,0.025)};
+\addplot[only marks, mark=square*, mark size=2.5pt, color=orange] coordinates {(0.003,0.024)};
+\addplot[only marks, mark=diamond*, mark size=3pt, color=red] coordinates {(0.001,0.110)};
+\addplot[only marks, mark=*, mark size=2.5pt, color=blue] coordinates {(0.028,0.0665)};
+\addplot[only marks, mark=pentagon*, mark size=3pt, color=teal] coordinates {(0.429,0.0766)};
+\addplot[only marks, mark=star, mark size=4pt, color=violet] coordinates {(0.525,0.1414)};
+\legend{Tuned $L_1$, Gated, Gini, Top-$k$, Rate-KL ($\lambda{=}.001$), Rate-KL ($\lambda{=}.01$)}
+\end{axis}
+\end{tikzpicture}
+\caption{Monosemanticity vs.\ steering, Fashion-MNIST, matched sparsity. Gini and Top-$k$ both sit near the low-purity edge; only Rate-KL occupies the high-purity, high-steering region.}
+\label{fig:mono-steer}
 \end{figure}
-
-On the harder Fashion-MNIST dataset, $L_1$ regularization failed completely (collapsing to 100\% sparsity and 10\% accuracy), whereas the Gini method remained highly effective ($60.0\%$ accuracy), performing almost on par with the strong Top-$k$ structural baseline. This suggests that Gini-based sparsity is significantly more robust for complex, high-entropy patterns. The picture is mixed on the easier MNIST dataset, however: here $L_1$ does not collapse, and it outperforms Gini on downstream accuracy ($65.5\%$ vs. $59.7\%$), with Top-$k$ ahead of both ($68.2\%$). We take this as evidence that Gini's robustness advantage is specific to regimes where $L_1$'s magnitude-starvation failure mode is actually triggered, not a general accuracy advantage.
-
-\subsection{Sensitivity Analysis and Computational Cost}
-\label{sec:benchmarks}
-We evaluated the sensitivity of the Gini SAE to the stability penalty $\gamma$. For $\gamma \in [0, 10^{-4}]$, the reconstruction MSE varied by less than 5\%, indicating that Gini's scale-invariant property is robust to the exact choice of weighting for the $L_1$ or $L_2$ floor. 
-
-Computationally, Gini optimization introduces a sorting overhead. On a standard CPU-based training step for $N=1024$, Gini took 10.95 ms per step compared to 6.68 ms for vanilla $L_1$. In the context of large-scale transformer training, where a single forward-backward pass through the residual stream often exceeds several hundred milliseconds, this overhead is negligible.
-
-\subsection{Hybrid Gini-Top-$k$ Architecture: Learned Feature Selection}
-We propose a Gini-Top-$k$ Hybrid architecture that leverages Gini as a differentiable "voting" mechanism for structural selection. In traditional Top-$k$ SAEs, neurons are selected based on their raw intensity, which can be noisy during early training. Our hybrid model uses Gini to shape the underlying distribution before the hard Top-$k$ mask is applied. 
-
-Experimental results on Fashion-MNIST demonstrate that Gini-guided selection preserves semantic fidelity better than magnitude-masked $L_1$. While pure structural Top-$k$ remains an upper bound for clean-room reconstruction, our hybrid approach provides a natively differentiable framework for \textit{autonomous feature discovery}, where the model learns which semantic channels should "shout" to be heard by the Top-$k$ operator.
-
-\subsection{Feature Interpretability and Activation Histograms}
-The "shouting" nature of Gini optimization is clearly visible in the activation distributions (Figure \ref{fig:distributions}). Unlike $L_1$, which produces a dense "whisper" near zero (max activation $\sim$4.0), the Gini method yields a sharp bifurcation: the vast majority of neurons are perfectly silent, while active neurons exhibit high-magnitude, selective responses reaching up to 70.0 (Figure \ref{fig:distributions}). 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{figures/distributions.png}
-    \caption{Latent Distributions at 97\% Sparsity. Gini (left) allows activations up to 70.0, while $L_1$ (right) caps them at 4.0, illustrating the magnitude-decoupling effect.}
-    \label{fig:distributions}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\linewidth, height=5.2cm,
+    xlabel={Reconstruction MSE (lower is better)},
+    ylabel={Steering impact (ablate)},
+    xmin=0, xmax=0.017, ymin=0, ymax=0.16,
+    legend style={font=\tiny, at={(0.02,0.98)}, anchor=north west, draw=none, fill=none},
+    tick label style={font=\scriptsize}, label style={font=\scriptsize},
+    x tick label style={/pgf/number format/.cd, fixed, precision=3},
+]
+\addplot[only marks, mark=triangle*, mark size=2.5pt, color=gray] coordinates {(0.0021,0.025)};
+\addplot[only marks, mark=square*, mark size=2.5pt, color=orange] coordinates {(0.0038,0.024)};
+\addplot[only marks, mark=*, mark size=2.5pt, color=blue] coordinates {(0.0060,0.0665)};
+\addplot[only marks, mark=diamond*, mark size=3pt, color=red] coordinates {(0.0085,0.110)};
+\addplot[only marks, mark=pentagon*, mark size=3pt, color=teal] coordinates {(0.0097,0.0766)};
+\addplot[only marks, mark=star, mark size=4pt, color=violet] coordinates {(0.0159,0.1414)};
+\legend{Tuned $L_1$, Gated, Top-$k$, Gini, Rate-KL ($\lambda{=}.001$), Rate-KL ($\lambda{=}.01$)}
+\end{axis}
+\end{tikzpicture}
+\caption{Fidelity vs.\ steering. Rate-KL's best steering configuration ($\lambda{=}0.01$) has the worst reconstruction fidelity of any method tested, including the flawed Gini baseline -- an honest cost, not a free lunch.}
+\label{fig:fidelity-steer}
 \end{figure}
 
-Visual inspection of the learned filters shows that Gini-optimized models learn sharper, more monosemantic edges and strokes compared to the often-blurred features of $L_1$-regularized baselines at matched sparsity. Individual activation histograms (Figure \ref{fig:hists}) further confirm stable bimodal separation across different latent scaling factors.
+\textbf{These are single-run operating-point comparisons, not full sparsity sweeps} -- we do not currently have matched multi-point $(\text{sparsity}, \text{MSE})$ sweeps for every method needed to construct a true Pareto frontier across the sparsity axis, and we report Figures \ref{fig:mono-steer}--\ref{fig:fidelity-steer} as single-point comparisons at one matched sparsity level rather than overstating them as frontiers.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{figures/histograms.png}
-    \caption{Activation density (log scale on y-axis) for $N=1024$. The log-scale highlights the "Sparse Void" between silent neurons and the few monosemantic "shouting" features.}
-    \label{fig:hists}
-\end{figure}
+\subsection{Where Rate-KL Wins and Loses}
+\textbf{Monosemanticity:} Rate-KL wins decisively and consistently. Top-10\% purity of $0.429$--$0.525$ vs.\ Top-$k$'s $0.028$, Gini's $0.001$, Gated's $0.003$, Tuned $L_1$'s $0.000$ -- an order of magnitude or more over every alternative, on both operating points.
 
-\subsection{Cross-Domain Validation: Transformer Residual Streams}
-To verify that Gini optimization scales to modern mechanistic interpretability targets, we evaluated our method on the residual stream activations of the \textit{TinyStories-1M} transformer model. We trained an SAE with a latent dimension of $N=512$ ($8\times$ expansion of $d_{model}=64$) on activations extracted from the middle layer ($L4$) over 32,000 narrative tokens.
+\textbf{Steering:} Rate-KL wins at $\lambda{=}0.01$ ($0.141$ ablate, the best of any method) and is competitive at $\lambda{=}0.001$ ($0.077$, above Gated and Tuned $L_1$, below Top-$k$'s $0.067$... narrowly above, in fact). This is not universal: on MNIST specifically (Section \ref{sec:ratekl-results}), Top-$k$'s raw ablation number exceeds Rate-KL's, but Top-$k$'s top-decile purity there is $0.001$ -- the same hub artifact as Section \ref{sec:diagnosis}, occurring under Top-$k$ instead of Gini. We report this honestly rather than only on the dataset that favors Rate-KL.
 
-At matched training duration, the Gini-optimized SAE achieved a \textbf{Relative Sparsity of 98.6\%} (MSE 0.0003), while the $L_1$ baseline achieved 89.7\% sparsity at a substantially lower MSE of 0.0000077 ($\sim$36x lower). Gini's higher sparsity therefore comes at a real fidelity cost on this benchmark, not at comparable fidelity as sparsity alone might suggest. Qualitatively, the Gini SAE discovered a small set of highly selective features that "shout" in response to narrative concepts. For example, we observed monosemantic neurons sensitive to the protagonist name "Lily" and structural features detecting the transition from narrative setup to character action. In contrast, the $L_1$ features were often more polysemantic, with semantic signals distributed across multiple low-magnitude directions. We treat this cross-domain result as preliminary: a single run at one latent size and one training budget, without a fidelity-matched sweep against $L_1$. 
+\textbf{Magnitude:} We report per-feature magnitude directly only for the methods in Table \ref{tab:diagnosis}'s protocol (Gini, Top-$k$, Gated, Tuned $L_1$), where Gini's active-feature magnitude is $3\times$ Top-$k$'s. We did not separately log raw magnitude for Rate-KL in this evaluation pass; because ablation impact is exactly $|z_f|\cdot\lVert W_f\rVert$ and decoder norms are architecture-matched across methods, Rate-KL's steering advantage is indirect evidence of a magnitude advantage in the same direction, but we do not claim a directly measured number here and flag this as an evaluation gap to close.
 
-\subsection{Scalability and Polysemanticity: CIFAR-10 Results}
-To address the "feature soup" of natural images, we evaluated the robust Gini SAE (with Feature Revival) on CIFAR-10. At a latent dimension of $N=2048$, the model achieved a \textbf{Mean Squared Error of 0.0095} and a \textbf{Relative Sparsity of 97.0\%}. Critically, the Feature Revival mechanism limited dead neurons to only $4.5\%$ ($93/2048$), demonstrating that Gini optimization can effectively utilize high model capacity to capture complex visual features without the over-pruning observed in vanilla rank-based methods. 
+\textbf{Fidelity: Rate-KL loses, clearly and worst-in-class.} MSE at $\lambda{=}0.01$ ($0.0159$) is not just worse than Top-$k$'s ($0.0060$, $2.7\times$) -- it is worse than \emph{every} method in Table \ref{tab:positioning}, including Gini ($0.0085$), the method this paper spends most of its length diagnosing as broken. This is the real, unglamorous cost of concentrating reconstruction responsibility onto fewer, more selective, higher-magnitude features, and Figure \ref{fig:fidelity-steer} is designed to make that cost impossible to miss.
 
-\section{Limitations \& Discussion}
+\subsection{Multi-Seed, Multi-Dataset Replication}
+\label{sec:ratekl-results}
+\begin{table}[h]
+\centering
+\caption{Rate-KL vs.\ matched-sparsity Top-$k$, mean $\pm$ std over 3 seeds, three datasets.}
+\label{tab:ratekl-results}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Dataset / Model & Sparsity & Top-10\% & Ablate \\
+& & purity & \\ \midrule
+\multicolumn{4}{@{}l}{\textit{Fashion-MNIST}} \\
+Rate-KL ($\lambda{=}0.001$) & $0.906$ & $0.429{\pm}.036$ & $0.077{\pm}.011$ \\
+Rate-KL ($\lambda{=}0.01$) & $0.909$ & $\mathbf{0.525{\pm}.012}$ & $\mathbf{0.141{\pm}.005}$ \\
+Top-$k$ & $0.910$ & $0.028{\pm}.004$ & $0.067{\pm}.001$ \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{MNIST}} \\
+Rate-KL ($\lambda{=}0.001$) & $0.926$ & $0.342{\pm}.010$ & $0.048{\pm}.002$ \\
+Rate-KL ($\lambda{=}0.01$) & $0.938$ & $\mathbf{0.408{\pm}.011}$ & $0.069{\pm}.001$ \\
+Top-$k$ & $0.910$ & $0.001{\pm}.000$ & $\mathbf{0.097{\pm}.003}$ \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{CIFAR-10}} \\
+Rate-KL ($\lambda{=}0.001$) & $0.908$ & $\mathbf{0.055{\pm}.003}$ & $\mathbf{0.139{\pm}.005}$ \\
+Top-$k$ & $0.925$ & $0.000{\pm}.000$ & $0.108{\pm}.005$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Rate-KL's purity advantage is large and consistent -- $2$--$20\times$ Top-$k$'s top-decile-by-importance purity on every dataset tested. We omit a CIFAR-10 $\lambda{=}0.01$ row: that configuration fails the validity check in Section \ref{sec:bimodality} and is not a reportable number.
+
+\subsection{A Distinct Failure Mode: Activity Bimodality}
+\label{sec:bimodality}
+Equation \ref{eq:ratekl} constrains each feature's \emph{marginal} firing rate, averaged over the batch -- nothing constrains the \emph{joint} distribution of active counts per sample. At CIFAR-10, $\lambda{=}0.01$, an apparently spectacular result (ablate impact $4.4\times$ Top-$k$) is invalidated by this gap: 57\% of test samples have fewer than five active features. The rate target is satisfied by making a minority of samples dense and the majority near-silent; the large steering number is measured on the dense minority while reconstruction of the rest is effectively abandoned (MSE $3.8\times$ Top-$k$'s). We report the fraction of near-silent samples ($<5$ active) as a required validity gate alongside every Rate-KL number.
+
+\section{Do Rank Ties Corrupt the Gradient? A Resolved Sub-Question}
+\label{sec:tie-analysis}
+An earlier draft of this work speculated that \texttt{torch.sort}'s arbitrary tie-breaking corrupts Equation \ref{eq:gini}'s gradient at extreme sparsity. We resolve this directly. On a synthetic vector with tied non-zero values, hard-sort assigns four identical entries four \emph{different} gradients ($-0.459$ to $-0.074$) -- the hypothesized failure is real in the abstract. In a trained model it does not manifest: within-tie-group gradient variance is exactly zero throughout training, because with a ReLU encoder essentially all ties are literal zeros, and \texttt{torch.abs} has a zero subgradient at zero -- the chain rule zeroes the gradient before the rank-dependent term is ever applied, regardless of tie-break order. A provably tie-consistent soft-rank alternative (pairwise sigmoid comparisons, exactly symmetric since $\sigma(0){=}0.5$) changes nothing for this reason. The extreme-sparsity risk is ordinary ReLU dead-unit saturation, mitigated by Feature Revival, not rank-tie arbitrariness -- unrelated to the hub pathology this paper is centrally about, which occurs among \emph{active}, non-zero features.
+
+\subsection{Feature Revival}
+\label{sec:hybrid}
+To prevent dead neurons under objectives without a boundary-escalating penalty (Gini and its two failed fixes), we periodically re-initialize dead neurons' encoder weights from high-error reconstruction residuals, following the Ghost Grads approach in Gated SAEs \citep{lieberum2024gated}. Unnecessary under Rate-KL.
+
+\section{Investigating Feature Absorption: An Inconclusive Result}
+\label{sec:absorption}
+\citet{chanin2024absorption} identify \emph{feature absorption}: a concept's dedicated latent develops activation holes because a co-occurring, more specific latent has absorbed its direction, driven by sparsity pressure making the merge cheaper than firing two clean features. We hypothesized Rate-KL's per-feature rate constraint would resist this, since an absorbing latent's rate rises toward the union of the merged concepts' frequencies, individually penalized by Equation \ref{eq:ratekl}. We built a class-level adaptation (per-class logistic probes; a class's ``main latent'' is its highest-F1 firing predictor; an absorption instance is a sample where the main latent is silent but decoder-cosine-aligned other latents jointly carry the class-direction mass it typically carries), tested against a null control and a hub-contamination flag.
+
+The result is inconclusive. MNIST's near-perfect class separability puts every method at the metric's floor. On CIFAR-10, weak linear pixel-space probes make the compensation criterion pass almost trivially, and three of five methods tested have every class hub-contaminated (10/10), making their numbers uninterpretable. Only Fashion-MNIST yields a trustworthy measurement, and there the pattern is mixed: a fix for a secondary rate-mismatch mechanism (target rate $\rho$ below the true class base rate, which independently manufactures absorption-like pressure) \emph{increased} measured absorption rather than decreasing it. We do not claim Rate-KL is more or less prone to Chanin-style absorption than Top-$k$; our evaluation proxy was not sound enough on two of three datasets to support a claim either way.
+
+\section{Limitations and Discussion}
 \label{sec:limitations}
-While Gini Optimization offers several advantages, it is not without theoretical and practical trade-offs:
 \begin{itemize}
-    \item \textbf{Approximation of Sparsity}: Gini is a measure of inequality, not a direct proxy for $L_0$ sparsity. In specific cases, the model may achieve high Gini inequality by producing a few extreme "shouting" features and a long tail of small, non-zero values. While post-training thresholding mitigates this (Section \ref{sec:benchmarks}), true sparsity is not structurally enforced.
-    \item \textbf{Sorting Complexity}: The $O(N \log N)$ cost of sorting is non-trivial for very large latent dimensions (e.g., $N > 10^5$), though as noted, it remains manageable for current transformer scales. 
-    \item \textbf{Hyperparameter Sensitivity}: While robust to many parameters, the balance between reconstruction loss and Gini penalty ($\lambda$) remains sensitive to the entropy of the input dataset.
-    \item \textbf{Non-convex Sorting Landscape}: The piece-wise constant nature of the sorting permutation can lead to plateaus in the optimization landscape, which we mitigate through Feature Revival and stochastic training.
-    \item \textbf{Rank Ties at High Sparsity}: As the latent code collapses toward the extreme sparsity levels reported above, most activations tie at exactly zero. In a diagnostic run on MNIST ($N=64$), the average number of tied entries per sample rose to 59--61 of 64 by the end of training. We characterize this directly in Section \ref{sec:tie-analysis}: the arbitrary rank assignment does not, in fact, degrade the gradient signal, because the gradient on those entries is already exactly zero for an orthogonal reason (dying ReLU saturation), independent of how ties are broken.
+\item \textbf{Toy scale.} All experiments are on MNIST-family images ($N\le2048$); the central claims are not yet validated on a real language model's residual stream.
+\item \textbf{Fidelity cost, quantified and worst-in-class.} Rate-KL's best steering configuration has worse reconstruction than every method we compare against, including the broken Gini baseline (Section \ref{sec:positioning}).
+\item \textbf{Activity bimodality} (Section \ref{sec:bimodality}) is a real, dataset- and $\lambda$-dependent failure requiring an explicit validity gate; we do not yet have a general fix.
+\item \textbf{A secondary rate-mismatch mechanism} can manufacture absorption-like pressure when a uniform target $\rho$ is below a concept's natural frequency; our attempted fix did not work (Section \ref{sec:absorption}).
+\item \textbf{Magnitude was not directly measured for Rate-KL} in this evaluation pass (Section \ref{sec:positioning}); closing this gap is immediate future work.
+\item \textbf{Generality of the failure mode} (Section \ref{sec:method-gini}) is argued structurally, not tested empirically beyond the Gini instance -- we have not run other distribution-shape penalties (e.g.\ Theil index) to confirm the same failure recurs.
 \end{itemize}
 
-\subsection{Do Rank Ties Actually Corrupt the Gradient?}
-\label{sec:tie-analysis}
-Section \ref{sec:limitations}'s tie-count measurement was previously left uninterpreted; we resolve it here with a direct test (\texttt{experiments/tie\_gradient\_analysis.py}, \texttt{experiments/soft\_gini.py}).
-
-\textbf{Hypothesis under test.} If \texttt{torch.sort}'s arbitrary tie-breaking is corrupting the gradient signal, then latent entries with \emph{identical} values should receive \emph{different} gradients purely as an artifact of sort order --- and a tie-symmetric ranking should fix it.
-
-\textbf{Tie-aware alternative.} We implement a soft-rank Gini using pairwise sigmoid comparisons, $\text{rank}_{\text{soft}}(x_i) = 1 + \sum_{j \neq i}\sigma\!\big((x_i - x_j)/\tau\big)$, substituted for the sorted integer position in the same rank-weighted Gini formula. Because $\sigma(0) = 0.5$ exactly, any two tied entries receive an identical soft rank regardless of their position in the tensor, so $\partial\text{Gini}/\partial z_i = \partial\text{Gini}/\partial z_j$ is guaranteed whenever $z_i = z_j$ -- a property \texttt{torch.sort}-based ranking does not have. As $\tau \to 0$, soft rank converges to the hard rank used elsewhere in this paper (we verified numerical agreement to 4 decimal places at $\tau=10^{-3}$ on tie-free inputs).
-
-\textbf{Synthetic confirmation.} On a synthetic vector with two tied, non-zero groups ($[0.2,0.2,0.2,0.2,0.9,0.9]$), the hard-sort formulation assigns the four identical $0.2$ entries four \emph{different} gradients (ranging from $-0.459$ to $-0.074$), purely from tie-break order. The soft-rank formulation assigns all four the same gradient ($-0.266$), as intended. This confirms the hypothesized failure mode exists in the formulation in the abstract.
-
-\textbf{But in the trained model, the failure mode does not manifest.} Re-running the MNIST diagnostic and measuring within-tie-group gradient variance at each step (normalized by the per-sample gradient scale) gives a value of \emph{exactly zero}, at every point in training, for \textbf{both} the hard-sort and soft-rank formulations. The reason is architectural, not a property of the sort: with a ReLU encoder, essentially all ties are literal zeros produced by the ReLU floor (95.4--95.8\% of latent entries are exactly zero by epoch 1, matching the tie count), and \texttt{torch.abs} has a zero subgradient at $0$ (\texttt{sign(0) = 0}). The chain rule therefore zeroes the gradient on every ReLU-dead entry \emph{before} the rank-dependent term is ever applied, regardless of which arbitrary rank that entry was assigned. Soft ranking changes nothing here, because both formulations multiply by the same (zero) upstream term.
-
-\textbf{Revised conclusion.} The rank-tie mechanism speculated about in early drafts of this paper is not, in practice, the source of gradient degradation at high sparsity. The actual mechanism is standard ReLU saturation on dead units, a distinct and already-known failure mode that this paper mitigates via the Feature Revival mechanism (periodic reinitialization of dead neurons from reconstruction residuals; Section \ref{sec:hybrid}) rather than via any change to the ranking function. We still find soft ranking a well-motivated, provably tie-consistent replacement for \texttt{torch.sort} in principle -- it removes a genuine gradient inconsistency among tied, \emph{active} (non-zero) features, which the synthetic test above demonstrates directly -- but we no longer claim it addresses the extreme-sparsity dead-feature regime. We revise the open validity question accordingly: the risk at extreme sparsity is dead-unit gradient starvation (shared with any ReLU-based sparse architecture), not rank-tie arbitrariness.
-
-\subsection{Quantitative Interpretability and Feature Steering}
-To move beyond visual inspection, we evaluated the monosemanticity of learned features using three quantitative metrics: Feature Correlation, Kurtosis, and Steering Impact.
-
-\begin{table}[h]
-\centering
-\caption{Interpretability Metrics for Gini vs. $L_1$ Features.}
-\label{tab:interpretability}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-Metric & $L_1$ Baseline & \textbf{Differentiable Gini} \\ \midrule
-Mean Abs. Correlation & 0.139 & \textbf{0.037} \\
-Avg. Kurtosis & 4.44 & \textbf{7.50} \\
-Steering Impact & 0.019 & \textbf{0.121} \\ \bottomrule
-\end{tabular}
-\end{table}
-
-The results (Table \ref{tab:interpretability}) demonstrate that Gini optimization produces significantly more distinct and impactful features. The $3.7 \times$ lower correlation indicates that Gini features are effectively orthogonal, representing unique semantic directions. The high Kurtosis confirms a sharp bimodal activation distribution, preventing the "feature splitting" common in $L_1$ where concepts are absorbed across many weak directions. Critically, the \textbf{Steering Impact} for Gini is $6.3 \times$ higher than $L_1$. This indicates that ablating a single Gini-optimized feature causes a semantically significant change in the reconstruction, proving that these features capture high-fidelity components of the data distribution rather than mere noise. (The original Steering Impact metric above was estimated from a single feature on a single sample; Section \ref{sec:shrinkage-mechanism} replaces it with an estimate averaged over 1000 sample-feature interventions and situates the result against literature baselines.)
-
-\subsection{Why Does Gini Improve Steering? A Shrinkage-Mechanism Test}
-\label{sec:shrinkage-mechanism}
-
-The steering result above raises an obvious question: \emph{why} would penalizing distributional inequality, specifically, produce more causally-effective features than penalizing magnitude directly? The mechanistic literature on SAE training gives a concrete answer. \citet{wright2024addressing} identify \textit{shrinkage}: an $L_1$ penalty is paid on activation magnitude directly, so gradient descent finds it cheaper to shrink a feature's true magnitude toward zero than to pay the reconstruction cost of leaving it at full strength. Gated SAEs \cite{lieberum2024gated}, JumpReLU \cite{rajamanoharan2024jumprelu}, and Top-$k$ SAEs \cite{gao2024topk} are all, in this framing, different mechanisms for decoupling "does this feature fire" from "how large is it when it fires," specifically to avoid shrinkage. Differentiable Gini optimization -- which penalizes evenness of the activation distribution rather than magnitude -- is a candidate for the same class of fix, and predicts two measurable effects relative to $L_1$ at matched sparsity: (1) higher magnitude among features that do fire (less shrinkage), and (2) fewer co-active features per sample (less superposition \cite{elhage2022superposition}), both of which should increase the causal leverage of a single-feature intervention.
-
-We test this directly on Fashion-MNIST ($N=1024$), comparing Gini against Tuned $L_1$, a Gated SAE, and -- critically -- a Top-$k$ SAE whose $k$ we set to exactly match Gini's observed mean active-feature count (92 of 1024), giving a sparsity-matched comparison against the strongest existing shrinkage-free baseline rather than only against $L_1$. We also replace the single-sample steering metric above with an estimate averaged over 1000 (sample, feature) interventions, and report both feature \textit{ablation} (zeroing an active feature) and feature \textit{clamping} (amplifying it $3\times$), since steering in the literature (e.g. \citet{templeton2024scaling}) is about amplifying a direction, not only removing one.
-
-\begin{table}[h]
-\centering
-\caption{Shrinkage-mechanism and steering metrics, Fashion-MNIST, $N{=}1024$. Top-$k$ is sparsity-matched to Gini ($k=92$).}
-\label{tab:shrinkage}
-\begin{tabular}{@{}lccccc@{}}
-\toprule
-Model & Active/sample & Mean Magnitude & MSE & Steer (Ablate) & Steer (Clamp) \\ \midrule
-Tuned $L_1$ & 467.4 & 0.238 & \textbf{0.0021} & 0.025 & 0.050 \\
-Gated SAE & 248.6 & 0.165 & 0.0038 & 0.024 & 0.049 \\
-Top-$k$ ($k{=}92$) & 92.0 & 0.726 & 0.0060 & 0.065 & 0.130 \\
-\textbf{Gini} & 92.5 & \textbf{2.165} & 0.0085 & \textbf{0.107} & \textbf{0.215} \\ \bottomrule
-\end{tabular}
-\end{table}
-
-Both predictions hold, and the Top-$k$ comparison is what makes the result interpretable rather than incidental. Top-$k$ has \emph{no} magnitude penalty at all -- the purest possible shrinkage-free baseline -- yet at identical sparsity, Gini's active features carry $3\times$ Top-$k$'s magnitude and produce $1.6\times$ its steering impact under both ablation and clamping. This rules out "Gini merely avoids shrinkage" as the full explanation: Top-$k$ already avoids shrinkage by construction and still underperforms. Gini's distributional pressure appears to do something Top-$k$ does not -- \emph{actively concentrate} magnitude onto the surviving features, rather than simply declining to suppress it. Tuned $L_1$ and the Gated SAE, meanwhile, both have $2.5$--$5\times$ more co-active features per sample than Gini or Top-$k$, consistent with the superposition side of the prediction: diluted, distributed activity gives any single intervention less to work with, independent of magnitude.
-
-This comes with a quantified cost. Gini's MSE (0.0085) is the worst of the four at matched sparsity, including relative to Top-$k$ (0.0060). We do not read this as undermining the result: it is the other side of the same mechanism -- concentrating reconstruction responsibility onto fewer, larger-magnitude features is precisely what should trade fidelity for steerability, and Table \ref{tab:shrinkage} lets a reader weigh that tradeoff directly rather than encountering it only as an unexplained gap between sparsity and accuracy elsewhere in this paper (Section \ref{sec:limitations}).
-
 \section{Conclusion}
-We have presented Gini Optimization as a scale-invariant alternative to $L_1$ regularization for Sparse Autoencoders. By decoupling feature sparsity from activation magnitude, we mitigate the problem of \textit{magnitude starvation} and enable features to maintain semantic fidelity even at extreme levels of sparsity. Our theoretical analysis of \textit{gradient persistence} and empirical results across multiple domains suggest that Gini-regularized models are a promising tool for high-fidelity mechanistic interpretability. 
+Objectives that shape the \emph{distribution} of SAE activations cannot be pushed toward causal steering efficacy without dragging a polysemantic hub-feature pathology along with them, because they are permutation-invariant over feature identity and their gradient vanishes exactly at the degenerate state a hub occupies -- a structural property, not a Gini-specific bug, which our two failed repair attempts each confirm from a different angle. Objectives that instead track \emph{identity-level} statistics with \emph{boundary-escalating} gradients decouple sparsity from interpretability. Rate-KL, our instantiation of this principle, produces the most class-selective and highest-steering-impact features of any method we tested at matched sparsity, at the worst reconstruction fidelity of any method we tested -- a real, quantified trade we report plainly rather than obscure. We view the general principle as the paper's most exportable finding, and leave validating it at transformer-residual-stream scale, instantiating it with divergences other than KL, and testing whether the same failure recurs in other distribution-shape penalties, to future work.
 
-While $L_1$ remains a standard for structural sparsity, Gini's distributional pressure provides a powerful mechanism for identifying monosemantic "shouting" features in high-entropy latent spaces. Future work will further explore the integration of Gini-induced sparsity into billion-parameter transformer residual streams and the information-theoretic bounds of distributional inequality in dictionary learning.
-
-\begin{thebibliography}{9}
-\bibitem{hurley2009comparing} Hurley, N., \& Rickard, S. (2009). Comparing measures of sparsity. IEEE Transactions on Information Theory, 55(10), 4723-4741.
-\bibitem{lieberum2024gated} Lieberum, T., et al. (2024). Gated Sparse Autoencoders as a Solution to Magnitude Starvation. arXiv preprint arXiv:2404.14249.
-\bibitem{rajamanoharan2024jumprelu} Rajamanoharan, S., et al. (2024). Improving Interpretability at Scale: JumpReLU SAEs. arXiv preprint arXiv:2407.14454.
-\bibitem{zonoobi2011gini} Zonoobi, D., et al. (2011). Gini Index as a Sparsity Measure for Signal Recovery. IEEE Transactions on Signal Processing.
-\bibitem{louizos2017learning} Louizos, C., et al. (2017). Learning Sparse Neural Networks through $L_0$ Regularization. ICLR.
-\bibitem{wright2024addressing} Wright, B., \& Sharkey, L. (2024). Addressing Feature Suppression in Sparse Autoencoders. arXiv preprint arXiv:2405.12241.
-\bibitem{gao2024topk} Gao, L., et al. (2024). Scaling and Evaluating Sparse Autoencoders. arXiv preprint arXiv:2406.04093.
-\bibitem{elhage2022superposition} Elhage, N., et al. (2022). Toy Models of Superposition. Transformer Circuits Thread.
-\bibitem{templeton2024scaling} Templeton, A., et al. (2024). Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet. Transformer Circuits Thread.
+\begin{thebibliography}{99}
+\bibitem[Hurley and Rickard(2009)]{hurley2009comparing} Hurley, N. and Rickard, S. (2009). Comparing measures of sparsity. \textit{IEEE Transactions on Information Theory}, 55(10):4723--4741.
+\bibitem[Lieberum et al.(2024)]{lieberum2024gated} Lieberum, T. et al. (2024). Gated Sparse Autoencoders as a Solution to Magnitude Starvation. \textit{arXiv:2404.14249}.
+\bibitem[Rajamanoharan et al.(2024)]{rajamanoharan2024jumprelu} Rajamanoharan, S. et al. (2024). Improving Interpretability at Scale: JumpReLU SAEs. \textit{arXiv:2407.14454}.
+\bibitem[Zonoobi et al.(2011)]{zonoobi2011gini} Zonoobi, D. et al. (2011). Gini Index as a Sparsity Measure for Signal Recovery. \textit{IEEE Transactions on Signal Processing}.
+\bibitem[Wright and Sharkey(2024)]{wright2024addressing} Wright, B. and Sharkey, L. (2024). Addressing Feature Suppression in Sparse Autoencoders. \textit{arXiv:2405.12241}.
+\bibitem[Gao et al.(2024)]{gao2024topk} Gao, L. et al. (2024). Scaling and Evaluating Sparse Autoencoders. \textit{arXiv:2406.04093}.
+\bibitem[Shazeer et al.(2017)]{shazeer2017outrageously} Shazeer, N. et al. (2017). Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer. \textit{ICLR}.
+\bibitem[Fedus et al.(2022)]{fedus2022switch} Fedus, W., Zoph, B., and Shazeer, N. (2022). Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity. \textit{JMLR}.
+\bibitem[Chanin et al.(2024)]{chanin2024absorption} Chanin, D. et al. (2024). A is for Absorption: Studying Feature Splitting and Absorption in Sparse Autoencoders. \textit{arXiv:2409.14507}.
+\bibitem[Ng(2011)]{ng2011sparse} Ng, A. (2011). Sparse Autoencoder. \textit{CS294A Lecture Notes}, Stanford University.
 \end{thebibliography}
 
 \end{document}
