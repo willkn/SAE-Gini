@@ -117,6 +117,26 @@ This is a classic KL-sparsity autoencoder \citep{ng2011sparse} with one change o
 
 Equation \ref{eq:ratekl} satisfies both properties motivated in Section \ref{sec:failed-fixes}. \textbf{Identity-tracked}: $\hat p_f$ is per-index, summed (not pooled) over features -- no feature can hide behind the aggregate. \textbf{Boundary-escalating}: $\mathrm{KL}(\rho\|p)\to\infty$ as $p\to0$ or $p\to1$ -- the opposite of Gini's vanishing gradient at the same points. A practical corollary: Feature Revival (Section \ref{sec:hybrid}) becomes unnecessary -- we observe zero dead features at every $\lambda$ tested, vs.\ 294/1024 for Top-$k$.
 
+\subsection{A Second Instantiation: The Design Principle, Not the Formula}
+\label{sec:barrier}
+Rate-KL's success could be a property of the specific KL-divergence formula rather than of the identity-tracked, boundary-escalating design principle it was built to instantiate. We test this with a functionally unrelated penalty that shares only the two required properties: an interior-point \emph{log-barrier}, $\mathrm{barrier}(p) = -\log(p) - \log(1-p)$, applied per-feature (identity-tracked, summed) and diverging as $p\to0$ or $p\to1$ (boundary-escalating), paired with a separate mean-matching budget term to induce sparsity (the barrier alone is minimized at $p{=}0.5$ and does not by itself target a rate). We rejected reverse-KL, $\mathrm{KL}(\hat p_f\|\rho)$, as a second instance during design: unlike Equation \ref{eq:ratekl}, it is \emph{finite} at $p{\in}\{0,1\}$ (each term is of the form $x\log x \to 0$), so it does not escalate at the boundary and would not test the principle.
+
+\begin{table}[h]
+\centering
+\caption{Log-barrier penalty vs.\ Top-$k$, Fashion-MNIST, one seed. Sparsity is not yet matched to Top-$k$'s (Limitations); reported as-is.}
+\label{tab:barrier}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & Sparsity & MSE & Top-10\% purity & Ablate \\ \midrule
+Barrier ($\lambda_b{=}0.001$) & 0.784 & 0.0076 & 0.333 & 0.051 \\
+Barrier ($\lambda_b{=}0.005$) & 0.770 & 0.0111 & 0.406 & 0.093 \\
+Barrier ($\lambda_b{=}0.01$) & 0.781 & 0.0114 & \textbf{0.385} & \textbf{0.102} \\
+Top-$k$ & \textbf{0.910} & \textbf{0.0060} & 0.026 & 0.066 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Despite sparsity undershooting Top-$k$'s (0.77--0.78 vs.\ 0.91, which if anything should favor Top-$k$'s per-feature impact, not the barrier's), the log-barrier penalty shows the same qualitative signature as Rate-KL: top-decile purity $13$--$16\times$ Top-$k$'s, and steering impact exceeding Top-$k$'s at the best configuration despite lower sparsity. A completely different functional form, sharing only the two structural properties we argued were necessary, avoids the hub pathology the same way -- evidence that the design principle, not the KL formula, is what matters. We do not yet have a sparsity-matched version of this comparison (Section \ref{sec:limitations}).
+
 \section{Positioning Rate-KL Against Leading Methods}
 \label{sec:positioning}
 We evaluate Rate-KL ($\rho{=}0.09$, two operating points) directly against Top-$k$, a Gated SAE, Tuned $L_1$, and Gini on Fashion-MNIST, $N{=}1024$, at matched sparsity ($k$, and Rate-KL's $\rho$, both targeting $\approx$92 active features), with every method put through the identical evaluation pipeline -- sparsity/MSE/magnitude, purity, and steering all computed the same way for all six rows -- and every method other than Gini replicated over 3 seeds.
@@ -245,7 +265,8 @@ To prevent dead neurons under objectives without a boundary-escalating penalty (
 \item \textbf{Activity bimodality} (Section \ref{sec:bimodality}) is a real, dataset- and $\lambda$-dependent failure requiring an explicit validity gate; we do not yet have a general fix.
 \item \textbf{Feature absorption} \citep{chanin2024absorption} is a distinct sparsity-induced pathology from the hub failure this paper centers on. We tested whether Rate-KL is more robust to it than Top-$k$ using a class-level adaptation of their metric; the result was inconclusive on two of three datasets (weak CIFAR-10 pixel-space probes, an MNIST floor effect) and, on the one dataset where the metric was trustworthy, a fix for a secondary rate-mismatch mechanism (target rate $\rho$ below a concept's natural frequency, which can independently manufacture absorption-like pressure) increased rather than decreased measured absorption. We do not make a claim in either direction and leave a sounder version of this metric to future work.
 \item \textbf{Decoder-column norms are not yet directly measured.} Section \ref{sec:positioning} shows Rate-KL's steering advantage cannot be explained by activation magnitude (it is \emph{lower} than Top-$k$'s), implying larger decoder-column norms on its active features; we infer this from the ablation-impact arithmetic rather than measuring it directly, and closing that gap is immediate follow-up work.
-\item \textbf{Generality of the failure mode} (Section \ref{sec:method-gini}) is argued structurally, not tested empirically beyond the Gini instance -- we have not run other distribution-shape penalties (e.g.\ Theil index) to confirm the same failure recurs.
+\item \textbf{Generality of the failure mode} (Section \ref{sec:method-gini}): a gradient-magnitude check on the Theil index confirms the predicted vanishing-gradient-at-hub signature analytically (gradient $3.7{\times}10^{-9}$ at a synthetic hub point vs.\ $0.094$ at a genuinely varied selective point), but the full training-time diagnostic (does a Theil-regularized SAE actually collapse onto hub features the way Gini does) is still running at a corrected, sparsity-matched configuration and not yet reported.
+\item \textbf{The log-barrier confirmation (Section \ref{sec:barrier}) is not yet sparsity-matched} to the Top-$k$ reference it is compared against (0.77--0.78 vs.\ 0.91); the qualitative signature (high purity, competitive steering despite lower sparsity) is suggestive but a matched comparison is needed before treating it as conclusive.
 \end{itemize}
 
 \section{Conclusion}
